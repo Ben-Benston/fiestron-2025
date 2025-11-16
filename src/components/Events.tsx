@@ -1,52 +1,83 @@
-import React, { useState } from 'react'
-import '../css/Events.css'
+import { useState } from 'react'
 
-const Events: React.FC = () => {
+const Events = () => {
   const [filter, setFilter] = useState('all')
 
   const events = [
-    { id: 1, title: 'Code Sprint', category: 'technical', description: 'Competitive coding challenge', date: '12 Mar', emoji: '💻' },
-    { id: 2, title: 'Web Dev Challenge', category: 'technical', description: 'Build the best web application', date: '13 Mar', emoji: '🌐' },
-    { id: 3, title: 'AI/ML Hackathon', category: 'technical', description: 'Innovation with AI and ML', date: '14 Mar', emoji: '🤖' },
-    { id: 4, title: 'Gaming Tournament', category: 'games', description: 'Esports competitions', date: '12 Mar', emoji: '🎮' },
-    { id: 5, title: 'Quiz Master', category: 'non-technical', description: 'General knowledge quiz', date: '13 Mar', emoji: '🧠' },
-    { id: 6, title: 'Treasure Hunt', category: 'non-technical', description: 'Adventurous treasure quest', date: '14 Mar', emoji: '🔍' },
-    { id: 7, title: 'Debate Competition', category: 'non-technical', description: 'Intellectual debate showdown', date: '12 Mar', emoji: '🎤' },
-    { id: 8, title: 'Photography Contest', category: 'non-technical', description: 'Capture the moment', date: '13 Mar', emoji: '📸' },
+    { id: 1, emoji: '💻', title: 'Hackathon', description: '24-hour coding challenge.', date: 'Jan 12', category: 'technical' },
+    { id: 2, emoji: '🎤', title: 'Open Mic', description: 'Sing, speak, or perform.', date: 'Jan 15', category: 'non-technical' },
+    { id: 3, emoji: '🎮', title: 'LAN Gaming', description: 'Multiplayer PC gaming.', date: 'Jan 18', category: 'games' },
+    { id: 4, emoji: '🧪', title: 'Tech Expo', description: 'Showcase your creations.', date: 'Jan 20', category: 'technical' },
   ]
 
-  const filteredEvents = filter === 'all' ? events : events.filter(e => e.category === filter)
+  const filteredEvents =
+    filter === 'all'
+      ? events
+      : events.filter(e => e.category === filter)
+
+  const categories = ['all', 'technical', 'non-technical', 'games']
 
   return (
-    <section id='events' className='events-root'>
-      <div className='events-container'>
-        <h2 className='events-title'>Explore Events</h2>
+    <section className="relative py-20 px-6 bg-gradient-to-b from-[#1a1a2e] to-[#0f0f1a] text-white overflow-hidden">
+      
+      {/* Gradient Blobs */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-10 left-20 w-72 h-72 bg-pink-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 right-32 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl"></div>
+      </div>
 
-        <div className='events-filter'>
-          {['all', 'technical', 'non-technical', 'games'].map(cat => {
+      <div className="max-w-6xl mx-auto relative z-10">
+        
+        {/* Title */}
+        <h2 className="text-4xl font-extrabold mb-10 text-center">
+          Events
+        </h2>
+
+        {/* Buttons */}
+        <div className="flex gap-4 justify-center mb-12 flex-wrap">
+          {categories.map(cat => {
             const isActive = filter === cat
-            const btnClass = isActive ? 'events-filter-btn-active' : 'events-filter-btn-inactive'
             return (
-              <button key={cat} onClick={() => setFilter(cat)} className={btnClass}>
-                {cat === 'all' ? 'All Events' : cat === 'technical' ? 'Technical' : cat === 'non-technical' ? 'Non-Technical' : 'Games'}
+              <button
+                key={cat}
+                onClick={() => setFilter(cat)}
+                className={
+                  isActive
+                    ? "px-5 py-2 rounded-full bg-white text-black font-semibold shadow-md scale-105 transition"
+                    : "px-5 py-2 rounded-full bg-white/10 text-white border border-white/20 transition hover:bg-white/20"
+                }
+              >
+                {cat === 'all'
+                  ? 'All Events'
+                  : cat === 'technical'
+                  ? 'Technical'
+                  : cat === 'non-technical'
+                  ? 'Non-Technical'
+                  : 'Games'}
               </button>
             )
           })}
         </div>
 
-        <div className='events-grid'>
+        {/* Events Grid */}
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {filteredEvents.map(event => (
-            <div key={event.id} className='event-card'>
-              <div className='event-emoji'>{event.emoji}</div>
-              <h3 className='event-title'>{event.title}</h3>
-              <p className='event-desc'>{event.description}</p>
-              <div className='event-footer'>
-                <span className='event-date'>📅 {event.date}</span>
-                <span className='event-arrow'>→</span>
+            <div
+              key={event.id}
+              className="bg-white/5 border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition backdrop-blur-md"
+            >
+              <div className="text-4xl mb-4">{event.emoji}</div>
+              <h3 className="text-xl font-semibold mb-2">{event.title}</h3>
+              <p className="text-white/70 mb-4">{event.description}</p>
+
+              <div className="flex justify-between items-center text-white/80">
+                <span>📅 {event.date}</span>
+                <span className="text-xl">→</span>
               </div>
             </div>
           ))}
         </div>
+
       </div>
     </section>
   )
