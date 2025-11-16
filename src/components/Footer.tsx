@@ -5,6 +5,7 @@ const Footer: React.FC = () => {
     <footer
       id="contact"
       className="
+        bg-black
         border-t border-[rgba(247,126,0,0.1)]
         px-6 sm:px-8 lg:px-10
       "

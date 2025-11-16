@@ -24,7 +24,7 @@ const Gallery: React.FC = () => {
       id="gallery"
       className="
         relative py-20 px-6
-        bg-gradient-to-b from-[#1a1a2e] via-[#16213e] to-[#1a1a2e]
+        bg-black
         text-white overflow-visible
       "
     >

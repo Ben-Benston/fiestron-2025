@@ -18,7 +18,7 @@ const Events = () => {
   const categories = ['all', 'technical', 'non-technical', 'games']
 
   return (
-    <section className="relative py-20 px-6 bg-gradient-to-b from-[#1a1a2e] to-[#0f0f1a] text-white overflow-hidden">
+    <section className="relative py-20 px-6 bg-black text-white overflow-hidden">
       
       {/* Gradient Blobs */}
       <div className="absolute inset-0 pointer-events-none">
