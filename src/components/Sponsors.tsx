@@ -3,15 +3,15 @@ import '../css/Sponsors.css'
 
 const Sponsors: React.FC = () => {
   const sponsors = [
-    { name: 'Tech Corp', tier: 'platinum', logo: '🏢' },
-    { name: 'Innovation Labs', tier: 'gold', logo: '🔬' },
-    { name: 'Digital Solutions', tier: 'gold', logo: '💼' },
-    { name: 'Cloud Services', tier: 'silver', logo: '☁️' },
-    { name: 'Dev Tools', tier: 'silver', logo: '⚙️' },
+    { name: 'ABC', tier: 'platinum', logo: '🏢' },
+    { name: 'XYZ', tier: 'gold', logo: '🔬' },
+    { name: 'PQR', tier: 'gold', logo: '💼' },
+    { name: 'LMN', tier: 'silver', logo: '☁️' },
+    { name: 'DEF', tier: 'silver', logo: '⚙️' },
   ]
 
   return (
-    <section id="sponsors" className="spon-root">
+    <section id="sponsors" className="spon-root bg-black ">
       <div className="spon-container">
         <div className="spon-header">
           <h2 className="spon-title">
@@ -111,6 +111,7 @@ const Sponsors: React.FC = () => {
           </div>
         </div>
       </div>
+      <br /><br />
     </section>
   )
 }

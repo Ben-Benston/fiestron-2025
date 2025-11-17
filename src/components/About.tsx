@@ -14,14 +14,14 @@ const About: React.FC = () => {
 
           <div>
             <h2 className="text-4xl font-bold bg-gradient-to-r from-orange-500 to-teal-500 bg-clip-text text-transparent mb-6">
-              Our Vision
+              About us
             </h2>
             <p className="text-gray-300 mb-6">
-              FIESTRON brings together the brightest minds from KC College and beyond to celebrate technology, creativity, and innovation.
+              Fiestron brings together the brightest minds from KC College and beyond to celebrate technology, creativity, and innovation.
             </p>
-            <p className="text-gray-300 mb-6">
-              With 50+ events, 11 dedicated departments, and a prize pool of ₹2 lakhs, FIESTRON is the ultimate platform for tech enthusiasts and cultural performers alike.
-            </p>
+            <p className="text-gray-300 mb-10">
+              With 50+ events, 11 dedicated departments, and a prize pool of ₹2 lakhs, Fiestron is the ultimate platform for tech enthusiasts and cultural performers alike.
+              We aim to ignite curiosity, foster collaboration, and push the boundaries of what’s possible, empowering students to turn ideas into impactful projects. By blending technology with creativity, Fiestron envisions a community where innovation meets expression, and every participant leaves inspired, skilled, and ready to shape the future.            </p>
 
             <div className="grid gap-4 md:grid-cols-3">
               {[

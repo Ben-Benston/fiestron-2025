@@ -26,7 +26,7 @@ const Gallery: React.FC = () => {
         relative py-20 px-6
         bg-black
         text-white overflow-visible
-      "
+     "
     >
       {/* Gradient Blobs */}
       <div className="absolute inset-0 pointer-events-none">

@@ -30,7 +30,7 @@ const Announcements: React.FC = () => {
   }
 
   return (
-    <section id="announcements" className="relative bg-gradient-to-b from-[#1a1a2e] via-[#16213e] to-[#1a1a2e] py-20 sm:py-32 overflow-visible">
+    <section id="announcements" className="relative bg-black py-20 sm:py-32 overflow-visible">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold bg-gradient-to-r from-orange-500 to-teal-500 bg-clip-text text-transparent mb-4">News & Updates</h2>

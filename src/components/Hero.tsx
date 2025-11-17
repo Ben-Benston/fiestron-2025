@@ -9,9 +9,10 @@ const Hero: React.FC = () => {
         relative overflow-visible
         bg-black
         pb-32
+        py-28
       "
     >
-      <div className="neon-tunnel" aria-hidden="true" />
+      <div className="neon-tunnel " aria-hidden="true" />
 
       {/* Glossy Semicircle Arcs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
