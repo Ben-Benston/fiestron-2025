@@ -14,7 +14,7 @@ import Footer from './components/Footer'
 import Team from './components/Team'
 import Events from './components/Events'
 import Gallery from './components/Gallery'
-import Registration from './components/Registration'
+// import Registration from './components/Registration'
 import Contact from './components/Contact'
 
 function App() {
@@ -40,7 +40,7 @@ function App() {
         <Route path="/team" element={<Team />} />
         <Route path="/events" element={<Events />} />
         <Route path="/gallery" element={<Gallery />} />
-        <Route path="/registration" element={<Registration />} />
+        {/* <Route path="/registration" element={<Registration />} /> */}
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>

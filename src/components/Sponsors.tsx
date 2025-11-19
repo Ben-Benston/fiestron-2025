@@ -1,119 +1,127 @@
-import React from 'react'
-import '../css/Sponsors.css'
+import React from "react";
 
 const Sponsors: React.FC = () => {
   const sponsors = [
-    { name: 'ABC', tier: 'platinum', logo: '🏢' },
-    { name: 'XYZ', tier: 'gold', logo: '🔬' },
-    { name: 'PQR', tier: 'gold', logo: '💼' },
-    { name: 'LMN', tier: 'silver', logo: '☁️' },
-    { name: 'DEF', tier: 'silver', logo: '⚙️' },
-  ]
+    { name: "ABC", tier: "platinum", logo: "🏢" },
+    { name: "XYZ", tier: "gold", logo: "🔬" },
+    { name: "PQR", tier: "gold", logo: "💼" },
+    { name: "LMN", tier: "silver", logo: "☁️" },
+    { name: "DEF", tier: "silver", logo: "⚙️" },
+  ];
 
   return (
-    <section id="sponsors" className="spon-root bg-black ">
-      <div className="spon-container">
-        <div className="spon-header">
-          <h2 className="spon-title">
+    <section
+      id="sponsors"
+      className="relative py-24 bg-black via-[#16213e] to-[#0f0f1e] overflow-visible"
+    >
+      {/* Ambient Glow Background (TOP & BOTTOM) */}
+      <div className="absolute inset-0 pointer-events-none z-0 bg-[radial-gradient(ellipse_at_bottom_center,rgba(247,126,0,0.2)_0%,rgba(247,126,0,0)_42%),radial-gradient(ellipse_at_bottom_center,rgba(247,126,0,0.14)_0%,rgba(247,126,0,0)_48%),radial-gradient(ellipse_at_bottom_center,rgba(247,126,0,0.1)_0%,rgba(247,126,0,0)_56%),radial-gradient(ellipse_at_bottom_center,rgba(247,126,0,0.06)_0%,rgba(247,126,0,0)_68%)] bg-[length:40%_28%,60%_42%,86%_62%,120%_88%] bg-no-repeat bg-bottom blur-xl"></div>
+      <div className="absolute bottom-[-60px] left-0 right-0 h-[300px] pointer-events-none z-0 bg-[radial-gradient(ellipse_at_bottom_center,rgba(247,126,0,0.2)_0%,rgba(247,126,0,0)_42%),radial-gradient(ellipse_at_bottom_center,rgba(247,126,0,0.14)_0%,rgba(247,126,0,0)_48%),radial-gradient(ellipse_at_bottom_center,rgba(247,126,0,0.1)_0%,rgba(247,126,0,0)_56%),radial-gradient(ellipse_at_bottom_center,rgba(247,126,0,0.06)_0%,rgba(247,126,0,0)_68%)] bg-[length:40%_28%,60%_42%,86%_62%,120%_88%] bg-no-repeat bg-bottom blur-xl"></div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-5xl font-bold bg-gradient-to-r from-[#F77E00] to-[#00A896] bg-clip-text text-transparent">
             Our Sponsors
           </h2>
-          <p className="spon-sub">Supporting FIESTRON 2025</p>
-          <div className="spon-divider"></div>
+          <p className="text-gray-300 mt-2">Supporting FIESTRON 2025</p>
+          <div className="h-1.5 w-24 mx-auto mt-4 bg-gradient-to-r from-[#F77E00] to-[#00A896] rounded-full"></div>
         </div>
 
-        {/* Sponsors Grid */}
-        <div className="spon-mb-wrapper">
-          <div className="spon-grid">
-            {sponsors.map((sponsor, idx) => (
-              <div
-                key={idx}
-                className="spon-card"
-              >
-                <div className="spon-logo">{sponsor.logo}</div>
-                <h3 className="contact-form-title">{sponsor.name}</h3>
-                <span className="spon-badge">
-                  {sponsor.tier.toUpperCase()} SPONSOR
-                </span>
-              </div>
-            ))}
-          </div>
+        {/* Sponsor Cards */}
+        <div className="grid gap-8 md:grid-cols-3 mb-16">
+          {sponsors.map((sponsor, idx) => (
+            <div
+              key={idx}
+              className="p-8 rounded-xl border border-[#F77E0040] bg-[linear-gradient(135deg,rgba(30,15,40,0.6)_0%,rgba(20,10,30,0.4)_100%)] backdrop-blur-xl text-center transition-all hover:border-[#F77E0080] hover:shadow-[0_12px_40px_rgba(247,126,0,0.2),inset_0_1px_1px_rgba(255,255,255,0.1)]"
+            >
+              <div className="text-7xl mb-4">{sponsor.logo}</div>
+              <h3 className="text-white text-xl font-semibold mb-2">
+                {sponsor.name}
+              </h3>
+              <span className="inline-block px-4 py-1 rounded-full bg-[#F77E0033] text-[#00A896] font-bold text-xs">
+                {sponsor.tier.toUpperCase()} SPONSOR
+              </span>
+            </div>
+          ))}
         </div>
 
-        {/* Sponsorship Benefits & Form */}
-        <div className="spon-benefits-grid">
-          <div className="spon-benefits">
-            <h3 className="contact-form-title">Why Sponsor FIESTRON?</h3>
-            <ul className="spon-benefits-list">
-              <li className="flex items-start">
-                <span className="text-cyan-400 mr-3 text-xl">✓</span>
-                <span>
-                  <strong>Brand Visibility:</strong> Reach 1000+ students and tech professionals
-                </span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-cyan-400 mr-3 text-xl">✓</span>
-                <span>
-                  <strong>Recruitment:</strong> Connect with top talent from KC College
-                </span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-cyan-400 mr-3 text-xl">✓</span>
-                <span>
-                  <strong>Social Impact:</strong> Support innovation and learning in tech community
-                </span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-cyan-400 mr-3 text-xl">✓</span>
-                <span>
-                  <strong>Media Coverage:</strong> Featured in all promotional materials
-                </span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-cyan-400 mr-3 text-xl">✓</span>
-                <span>
-                  <strong>Networking:</strong> Direct access to student community and team
-                </span>
-              </li>
+        {/* Benefits + Form */}
+        <div className="grid gap-8 md:grid-cols-2">
+
+          {/* Benefits */}
+          <div className="p-8 rounded-xl border border-[#F77E0040] bg-[linear-gradient(135deg,rgba(30,15,40,0.6)_0%,rgba(20,10,30,0.4)_100%)] backdrop-blur-xl">
+            <h3 className="text-white text-2xl font-semibold mb-6">
+              Why Sponsor FIESTRON?
+            </h3>
+
+            <ul className="flex flex-col gap-4 text-gray-300">
+              {[
+                ["Brand Visibility", "Reach 1000+ students and tech professionals"],
+                ["Recruitment", "Connect with top talent from KC College"],
+                ["Social Impact", "Support innovation and learning in tech community"],
+                ["Media Coverage", "Featured in all promotional materials"],
+                ["Networking", "Direct access to student community and team"],
+              ].map(([title, desc], i) => (
+                <li key={i} className="flex items-start">
+                  <span className="text-cyan-400 mr-3 text-xl">✓</span>
+                  <span>
+                    <strong>{title}: </strong>
+                    {desc}
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div className="spon-form-wrap">
-            <h3 className="contact-form-title">Become a Sponsor</h3>
-            <form className="spon-form-space">
+          {/* Form */}
+          <div className="p-8 rounded-xl border border-[#F77E0040] bg-[linear-gradient(135deg,rgba(30,15,40,0.6)_0%,rgba(20,10,30,0.4)_100%)] backdrop-blur-xl">
+            <h3 className="text-white text-2xl font-semibold mb-6">
+              Become a Sponsor
+            </h3>
+
+            <form className="flex flex-col gap-4">
+
               <input
                 type="text"
                 placeholder="Company Name"
-                className="spon-input"
+                className="w-full px-4 py-2 bg-[#003049] text-white rounded-lg border border-[#F77E004D] focus:border-[#00A896] outline-none transition"
               />
+
               <input
                 type="email"
                 placeholder="Contact Email"
-                className="spon-input"
+                className="w-full px-4 py-2 bg-[#003049] text-white rounded-lg border border-[#F77E004D] focus:border-[#00A896] outline-none transition"
               />
+
               <input
                 type="tel"
                 placeholder="Phone Number"
-                className="spon-input"
+                className="w-full px-4 py-2 bg-[#003049] text-white rounded-lg border border-[#F77E004D] focus:border-[#00A896] outline-none transition"
               />
-              <select className="spon-input">
+
+              <select className="w-full px-4 py-2 bg-[#003049] text-white rounded-lg border border-[#F77E004D] focus:border-[#00A896] outline-none transition">
                 <option>Select Sponsorship Tier</option>
                 <option>Platinum - ₹50,000+</option>
                 <option>Gold - ₹30,000</option>
                 <option>Silver - ₹15,000</option>
               </select>
+
               <button
                 type="submit"
-                className="spon-submit"
+                className="w-full py-2 rounded-lg bg-gradient-to-r from-[#F77E00] to-[#00A896] text-white font-bold transition shadow-md hover:shadow-[0_10px_20px_rgba(247,126,0,0.4)]"
               >
                 Send Inquiry
               </button>
+
             </form>
           </div>
         </div>
-      </div>
-      <br /><br />
-    </section>
-  )
-}
 
-export default Sponsors
+      </div>
+    </section>
+  );
+};
+
+export default Sponsors;
