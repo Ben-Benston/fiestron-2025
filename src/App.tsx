@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
+import ScrollToTop from './components/ScrollToTop' 
 
 // Scroll sections
 import Header from './components/Header'
@@ -14,12 +15,12 @@ import Footer from './components/Footer'
 import Team from './components/Team'
 import Events from './components/Events'
 import Gallery from './components/Gallery'
-// import Registration from './components/Registration'
 import Contact from './components/Contact'
 
 function App() {
   return (
     <Router>
+      <ScrollToTop /> {/* <--- ADD THIS HERE */}
       <Routes>
         {/* Homepage with scroll sections */}
         <Route
@@ -40,7 +41,6 @@ function App() {
         <Route path="/team" element={<Team />} />
         <Route path="/events" element={<Events />} />
         <Route path="/gallery" element={<Gallery />} />
-        {/* <Route path="/registration" element={<Registration />} /> */}
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
