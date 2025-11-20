@@ -16,6 +16,7 @@ import Team from './components/Team'
 import Events from './components/Events'
 import Gallery from './components/Gallery'
 import Contact from './components/Contact'
+import NotFound from './components/NotFound' 
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Route path="/events" element={<Events />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   )

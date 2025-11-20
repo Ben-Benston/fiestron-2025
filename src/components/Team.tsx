@@ -136,8 +136,8 @@ const Team: React.FC = () => {
     },
     { 
       name: 'Technical', 
-      head: { name: 'Rajat Udhwani', image: '/images/dept-tech-head.jpg' },
-      cohead: { name: 'Asadullah', image: '/images/dept-tech-cohead.jpg' }, // Updated Co-Head
+      head: { name: 'Rahil Shaikh', image: '/images/dept-tech-cohead.jpg' },
+      cohead: { name: 'Asabdullah Khan', image: '/images/dept-tech-head.jpg' }, 
       description: 'Handling sound, lights, stage setup, and providing technical support.', 
       emoji: '💻' 
     },
