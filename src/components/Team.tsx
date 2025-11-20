@@ -1,41 +1,50 @@
 import React from 'react'
-import Header from './Header' 
-import Footer from './Footer'
-
+import Footer from './Footer';
+import Header from './Header'; 
 
 const Team: React.FC = () => {
 
-  // --- 1. LEADERSHIP  ---
+  // --- 1. LEADERSHIP ---
   const leadership = {
+    vc: {
+      name: 'Prof.(Dr.) Hemlata K. Bagla', 
+      role: 'Hon. Vice Chancellor',
+      description: 'Leading HSNC University, Mumbai with a vision of academic excellence and innovation.',
+      image: '/images/vc.jpg', 
+      emoji: '🎓',
+      position: 'object-top'
+    },
     principal: {
-      name: 'Dr. Hemlata Bagla', 
-      role: 'Principal & Vice Chancellor (HSNCU)',
-      description: 'Spearheading KC College towards new heights of research, technology, and holistic development.',
+      name: 'Prof.(Dr.) Tejashree Shanbhag', 
+      role: 'I/C Principal',
+      description: 'Guiding K.C. College towards new heights of research, technology, and student development.',
       image: '/images/principal.jpg', 
-      emoji: '🏫'
+      emoji: '🏫',
+      position: 'object-top'
     },
     vps: [
-      { name: 'Dr. Shalini Sinha', role: 'Vice Principal', description: 'Ensuring academic rigor and student discipline.', emoji: '👩‍🏫', image: '/images/vp-shalini.jpg' },
-      { name: 'Dr. Rajesh Ashok Samant', role: 'Vice Principal', description: 'Managing administrative excellence and student welfare.', emoji: '👨‍🏫', image: '/images/vp-samant.jpg' },
-      { name: 'Dr. Ritika Pathak', role: 'Vice Principal', description: 'Driving cultural and extracurricular vibrancy.', emoji: '👩‍🏫', image: '/images/vp-ritika.jpg' },
+      { name: 'Dr. Shalini Sinha', role: 'Vice Principal', description: 'Ensuring academic rigor and student discipline.', emoji: '👩‍🏫', image: '/images/vp-shalini.jpg', position: 'object-top' },
+      { name: 'Dr. Rajesh Ashok Samant', role: 'Vice Principal', description: 'Managing administrative excellence and student welfare.', emoji: '👨‍🏫', image: '/images/vp-samant.jpg', position: 'object-top' },
+      { name: 'Dr. Ritika Pathak', role: 'Vice Principal', description: 'Driving cultural and extracurricular vibrancy.', emoji: '👩‍🏫', image: '/images/vp-ritika.jpg', position: 'object-top' },
     ],
     hod: {
       name: 'Dr. S. B. Muley',
       role: 'Coordinator - CS Dept',
       description: 'The technical backbone of the CS department, mentoring students to innovate.',
       image: '/images/hod-muley.jpg',
-      emoji: '👨‍💻'
+      emoji: '👨‍💻',
+      position: 'object-top'
     }
   }
 
   // --- 2. FACULTY ADVISORS ---
   const faculty = [
-    { name: 'Ms. Geeta Brijwani', role: 'Faculty Advisor', description: 'Guiding student initiatives with patience and experience.', emoji: '👩‍🏫', image: '/images/faculty-geeta.jpg' },
-    { name: 'Ms. Beena Karutharan', role: 'Faculty Advisor', description: 'Expert in computational logic and student mentorship.', emoji: '👩‍🏫', image: '/images/faculty-beena.jpg' },
-    { name: 'Ms. Jovairia Ansari', role: 'Faculty Advisor', description: 'Fostering creative thinking and technical writing skills.', emoji: '👩‍🏫', image: '/images/faculty-jovairia.jpg' },
-    { name: 'Ms. Ritika Sharma', role: 'Faculty Advisor', description: 'Managing events and coordinating departmental activities.', emoji: '👩‍🏫', image: '/images/faculty-ritika.jpg' },
+    { name: 'Ms. Geeta Brijwani', role: 'Faculty Advisor', description: 'Guiding student initiatives with patience and experience.', emoji: '👩‍🏫', image: '/images/faculty-geeta.jpg', position: 'object-top' },
+    { name: 'Ms. Beena Karutharan', role: 'Faculty Advisor', description: 'Expert in computational logic and student mentorship.', emoji: '👩‍🏫', image: '/images/faculty-beena.jpg', position: 'object-top' },
+    { name: 'Ms. Jovairia Ansari', role: 'Faculty Advisor', description: 'Fostering creative thinking and technical writing skills.', emoji: '👩‍🏫', image: '/images/faculty-jovairia.jpg', position: 'object-top' },
+    { name: 'Ms. Ritika Sharma', role: 'Faculty Advisor', description: 'Managing events and coordinating departmental activities.', emoji: '👩‍🏫', image: '/images/faculty-ritika.jpg', position: 'object-top' },
     { name: 'Ms. Shalini Maheshgauri', role: 'Faculty Advisor', description: 'Supporting technical infrastructure and coding clubs.', emoji: '👩‍🏫', image: '/images/faculty-shalini-m.jpg' },
-    { name: 'Ms. Dhanashree Ingle', role: 'Faculty Advisor', description: 'Encouraging participation and competitive spirit.', emoji: '👩‍🏫', image: '/images/faculty-dhanashree.jpg' },
+    { name: 'Ms. Dhanashree Ingle', role: 'Faculty Advisor', description: 'Encouraging participation and competitive spirit.', emoji: '👩‍🏫', image: '/images/faculty-dhanashree.jpg', position: 'object-top' },
   ]
 
   // --- 3. STUDENT CORE TEAM ---
@@ -45,32 +54,36 @@ const Team: React.FC = () => {
       role: 'Core Member', 
       description: 'Strategic planning and team coordination.', 
       emoji: '🦁', 
-      image: '/images/core-akanksha.jpg' 
+      image: '/images/core-akanksha.jpg',
+      position: 'object-top' 
     },
     { 
       name: 'Rida Ansari', 
       role: 'Core Member', 
       description: 'Operations and management execution.', 
       emoji: '🐯', 
-      image: '/images/core-rida.jpg' 
+      image: '/images/core-rida.jpg',
+      position: 'object-top' 
     },
     { 
       name: 'Qusai Kagalwala', 
       role: 'Core Member', 
       description: 'Technical oversight and resource management.', 
       emoji: '🦅', 
-      image: '/images/core-qusai.jpg' 
+      image: '/images/core-qusai.jpg',
+      position: 'object-top' 
     },
     { 
       name: 'Mohammad Husain', 
       role: 'Core Member', 
       description: 'Event flow and logistical support.', 
       emoji: '🐺', 
-      image: '/images/core-husain.jpg' 
+      image: '/images/core-husain.jpg',
+      position: 'object-top' 
     },
   ]
 
-  // --- 4. DEPARTMENTS (Updated Technical Co-Head) ---
+  // --- 4. DEPARTMENTS ---
   const departments = [
     { 
       name: 'Accounts', 
@@ -81,7 +94,9 @@ const Team: React.FC = () => {
     },
     { 
       name: 'Admin', 
-      head: { name: 'Tirth Sanghavi', image: '/images/dept-admin-head.jpg' },
+      head: { name: 'Tirth Sanghavi', 
+        image: '/images/dept-admin-head.jpg', 
+        position: 'object-top' },
       cohead: { name: 'Yogashri Bhadekar', image: '/images/dept-admin-cohead.jpg' },
       description: 'Handling permissions, venue allocation, contracts, and official documentation.', 
       emoji: '📂' 
@@ -137,8 +152,8 @@ const Team: React.FC = () => {
     },
     { 
       name: 'Technical', 
-      head: { name: 'Rahil Shaikh', image: '/images/dept-tech-cohead.jpg' },
-      cohead: { name: 'Asabdullah Khan', image: '/images/dept-tech-head.jpg' }, 
+      head: { name: 'Rajat Udhwani', image: '/images/dept-tech-head.jpg' },
+      cohead: { name: 'Asadullah', image: '/images/dept-tech-cohead.jpg' }, 
       description: 'Handling sound, lights, stage setup, and providing technical support.', 
       emoji: '💻' 
     },
@@ -152,8 +167,7 @@ const Team: React.FC = () => {
   ]
 
   // --- HELPER: Bigger Profile Card ---
-  // Increased width, padding, and image sizes for a more "Grand" look
-  const ProfileCard = ({ name, role, description, image, emoji, isLarge = false }: any) => (
+  const ProfileCard = ({ name, role, description, image, emoji, position, isLarge = false }: any) => (
     <div 
       className={`
         group relative flex flex-col items-center text-center p-8 
@@ -164,7 +178,8 @@ const Team: React.FC = () => {
         ${isLarge ? 'min-w-[350px] min-h-[400px]' : 'w-full min-h-[350px]'}
       `}
     >
-            <div className={`
+      {/* Image Circle */}
+      <div className={`
         relative mb-6 overflow-hidden rounded-full border-4 border-orange-500/20 
         transition-all duration-500 group-hover:border-teal-400/50 group-hover:shadow-[0_0_25px_rgba(0,168,150,0.4)]
         ${isLarge ? 'w-48 h-48' : 'w-36 h-36'}
@@ -175,7 +190,8 @@ const Team: React.FC = () => {
         <img 
           src={image} 
           alt={name} 
-          className="absolute inset-0 w-full h-full object-cover"
+          // FIX: Using the 'position' variable directly. Defaults to center if not provided.
+          className={`absolute inset-0 w-full h-full object-cover ${position || 'object-center'}`}
           onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} 
         />
       </div>
@@ -212,24 +228,31 @@ const Team: React.FC = () => {
           
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-orange-500 to-teal-500 bg-clip-text text-transparent mb-6">
-              Leadership & Committee
+              The Team
             </h2>
             <p className="text-gray-400 text-xl max-w-3xl mx-auto">
-              Meet the distinguished faculty and dedicated student leaders steering Fiestron 2025 toward excellence.
+              The visionaries, mentors, and creators behind Fiestron 2025.
             </p>
           </div>
 
           {/* --- 1. LEADERSHIP SECTION --- */}
           <div className="mb-32 flex flex-col gap-16 items-center">
-            
-            {/* Principal (Top) */}
-            <div className="w-full flex justify-center">
-               <ProfileCard {...leadership.principal} isLarge={true} />
+            <h3 className=" text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Principal</h3>
+            {/* Top Tier: VC & Principal - SIDE BY SIDE */}
+            <div className="flex flex-col md:flex-row gap-10 justify-center items-center w-full">
+               {/* VC */}
+               <div className="w-full md:w-1/3 max-w-sm flex justify-center">
+                  <ProfileCard {...leadership.vc} isLarge={true} />
+               </div>
+               {/* Principal */}
+               <div className="w-full md:w-1/3 max-w-sm flex justify-center">
+                  <ProfileCard {...leadership.principal} isLarge={true} />
+               </div>
             </div>
 
             {/* Vice Principals */}
-            <div className="w-full  " >
-              <h3 className="text-center text-gray-500  uppercase tracking-widest text-lg mb-10 font-semibold">Vice Principals</h3>
+            <div className="w-full">
+              <h3 className="text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Vice Principals</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-10 justify-center max-w-6xl mx-auto">
                 {leadership.vps.map((vp, idx) => (
                   <div key={idx} className="flex justify-center">
@@ -241,7 +264,7 @@ const Team: React.FC = () => {
 
             {/* Coordinator/HOD */}
             <div className="w-full flex flex-col items-center">
-               <h3 className="text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Head of Department</h3>
+               <h3 className="text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Coordinator</h3>
                <div className="w-full max-w-md">
                   <ProfileCard {...leadership.hod} isLarge={true} />
                </div>
@@ -304,7 +327,8 @@ const Team: React.FC = () => {
                         <img 
                           src={dept.head.image} 
                           alt={dept.head.name} 
-                          className="w-full h-full object-cover"
+                          // Note: Dept images use object-top by default now since they are mostly headshots
+                          className="w-full h-full object-cover object-top"
                           onError={(e) => { (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150?text=Head' }} 
                         />
                       </div>
@@ -318,7 +342,8 @@ const Team: React.FC = () => {
                         <img 
                           src={dept.cohead.image} 
                           alt={dept.cohead.name} 
-                          className="w-full h-full object-cover"
+                          // Note: Dept images use object-top by default now since they are mostly headshots
+                          className="w-full h-full object-cover object-top"
                           onError={(e) => { (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150?text=CoHead' }} 
                         />
                       </div>
@@ -339,6 +364,7 @@ const Team: React.FC = () => {
           </div>
 
         </div>
+
       </section>
       <Footer/>
     </>
