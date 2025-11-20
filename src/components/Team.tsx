@@ -213,10 +213,10 @@ const Team: React.FC = () => {
           
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-orange-500 to-teal-500 bg-clip-text text-transparent mb-6">
-              The Team
+              Leadership & Committee
             </h2>
             <p className="text-gray-400 text-xl max-w-3xl mx-auto">
-              The visionaries, mentors, and creators behind Fiestron 2025.
+              Meet the distinguished faculty and dedicated student leaders steering Fiestron 2025 toward excellence.
             </p>
           </div>
 
