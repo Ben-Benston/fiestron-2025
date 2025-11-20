@@ -95,8 +95,7 @@ const Team: React.FC = () => {
     { 
       name: 'Admin', 
       head: { name: 'Tirth Sanghavi', 
-        image: '/images/dept-admin-head.jpg', 
-        position: 'object-top' },
+      image: '/images/dept-admin-head.jpg', position: 'object-centre'},
       cohead: { name: 'Yogashri Bhadekar', image: '/images/dept-admin-cohead.jpg' },
       description: 'Handling permissions, venue allocation, contracts, and official documentation.', 
       emoji: '📂' 
@@ -125,7 +124,7 @@ const Team: React.FC = () => {
     { 
       name: 'Logistics', 
       head: { name: 'Chetan Rathod', image: '/images/dept-logistics-head.jpg' },
-      cohead: { name: 'Tarang Jain', image: '/images/dept-logistics-cohead.jpg' },
+      cohead: { name: 'Tarang Jain', image: '/images/dept-logistics-cohead.jpg', position: 'object-[50%_85%]'},
       description: 'Handling on-ground requirements, equipment, and coordinating resource needs.', 
       emoji: '🚚' 
     },
@@ -139,13 +138,13 @@ const Team: React.FC = () => {
     { 
       name: 'PR & Marketing', 
       head: { name: 'Pavan Mahadik', image: '/images/dept-marketing-head.jpg' },
-      cohead: { name: 'Iqra Shaikh', image: '/images/dept-marketing-cohead.jpg' },
+      cohead: { name: 'Iqra Shaikh', image: '/images/dept-marketing-cohead.jpg',position: 'object-[50%_25%]' },
       description: 'Promoting the club, managing campaigns, and building sponsor relationships.', 
       emoji: '📢' 
     },
     { 
       name: 'Security', 
-      head: { name: 'Chaitanya Salvi', image: '/images/dept-security-head.jpg' },
+      head: { name: 'Chaitanya Salvi', image: '/images/dept-security-head.jpg',position: 'object-[50%_30%]' },
       cohead: { name: 'Jahnvi Nair', image: '/images/dept-security-cohead.jpg' },
       description: 'Crowd management, access control, safety, and emergency response.', 
       emoji: '🛡️' 
@@ -166,7 +165,7 @@ const Team: React.FC = () => {
     },
   ]
 
-  // --- HELPER: Bigger Profile Card ---
+
   const ProfileCard = ({ name, role, description, image, emoji, position, isLarge = false }: any) => (
     <div 
       className={`
@@ -196,7 +195,7 @@ const Team: React.FC = () => {
         />
       </div>
 
-      <h3 className={`font-bold text-white transition-colors duration-500 group-hover:text-teal-400 ${isLarge ? 'text-3xl' : 'text-2xl'}`}>
+      <h3 className={`font-bold text-white transition-colors duration-500 group-hover:text-teal-400 mb-4 ${isLarge ? 'text-3xl' : 'text-2xl'}`}>
         {name}
       </h3>
       <p className="text-gray-400 text-sm uppercase tracking-wider font-medium mb-3">
@@ -228,16 +227,16 @@ const Team: React.FC = () => {
           
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-orange-500 to-teal-500 bg-clip-text text-transparent mb-6">
-              The Team
+             Minds Behind Fiestron
             </h2>
-            <p className="text-gray-400 text-xl max-w-3xl mx-auto">
-              The visionaries, mentors, and creators behind Fiestron 2025.
+            <p className="text-gray-400 text-xl max-w-3xl mx-auto ">
+             Fiestron is driven by a team of educators and students who bring structure, creativity, and technical expertise together.
             </p>
           </div>
 
           {/* --- 1. LEADERSHIP SECTION --- */}
-          <div className="mb-32 flex flex-col gap-16 items-center">
-            <h3 className=" text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Principal</h3>
+          <div className="mb-32 flex flex-col gap-10 items-center mt-12">
+            <h3 className=" text-center text-gray-500 uppercase tracking-widest text-lg font-semibold">Vice Chancellor & Principal</h3>
             {/* Top Tier: VC & Principal - SIDE BY SIDE */}
             <div className="flex flex-col md:flex-row gap-10 justify-center items-center w-full">
                {/* VC */}
@@ -264,7 +263,7 @@ const Team: React.FC = () => {
 
             {/* Coordinator/HOD */}
             <div className="w-full flex flex-col items-center">
-               <h3 className="text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Coordinator</h3>
+               <h3 className="text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Head of Department</h3>
                <div className="w-full max-w-md">
                   <ProfileCard {...leadership.hod} isLarge={true} />
                </div>
@@ -328,7 +327,8 @@ const Team: React.FC = () => {
                           src={dept.head.image} 
                           alt={dept.head.name} 
                           // Note: Dept images use object-top by default now since they are mostly headshots
-                          className="w-full h-full object-cover object-top"
+                          className={`w-full h-full object-cover ${dept.head.position || 'object-top'}`}
+
                           onError={(e) => { (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150?text=Head' }} 
                         />
                       </div>
@@ -343,7 +343,7 @@ const Team: React.FC = () => {
                           src={dept.cohead.image} 
                           alt={dept.cohead.name} 
                           // Note: Dept images use object-top by default now since they are mostly headshots
-                          className="w-full h-full object-cover object-top"
+                          className={`w-full h-full object-cover ${dept.cohead.position || 'object-top'}`}
                           onError={(e) => { (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150?text=CoHead' }} 
                         />
                       </div>

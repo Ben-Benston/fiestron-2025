@@ -128,10 +128,6 @@ const Footer: React.FC = () => {
               © 2025 FIESTRON - Tech Club, KC College
             </p>
 
-            <div className="flex gap-8">
-              <a href="#" className="text-sm text-gray-500 hover:text-[#00A896] transition">Privacy</a>
-              <a href="#" className="text-sm text-gray-500 hover:text-[#00A896] transition">Terms</a>
-            </div>
           </div>
         </div>
 
