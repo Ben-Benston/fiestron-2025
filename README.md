@@ -1,110 +1,114 @@
-# TechClub Website
+🚀 FIESTRON 2025 - Official Website
 
-A modern, responsive tech club website built with **React**, **Vite**, and **Tailwind CSS**.
+The Official, Full-Stack Platform for Fiestron 2025 — The Annual Tech Fest of KC College.
 
-## Features
+This application is built for performance and scalability, handling over 34 dynamic events, managing announcements, and serving as the primary hub for registrations and information.
 
-- 🎨 **Modern UI** - Beautiful, gradient-based design with smooth animations
-- 📱 **Fully Responsive** - Looks great on desktop, tablet, and mobile
-- ⚡ **Fast Performance** - Built with Vite for lightning-fast load times
-- 🎯 **Component-Based** - Modular React components for easy maintenance
-- 🎭 **CSS** - CSS framework for rapid styling
+🛠️ Full-Stack Technology
 
-## Sections
+This project represents a complete, modern full-stack implementation:
 
-- **Header** - Sticky navigation with mobile menu
-- **Hero** - Eye-catching welcome section
-- **About** - Information about the tech club
-- **Events** - Upcoming events and workshops
-- **Gallery** - Event highlights and memories
-- **Team** - Meet the club leadership
-- **Footer** - Contact and social links
+Component
 
-## Getting Started
+Technology
 
-### Prerequisites
-- Node.js (v16 or higher)
-- npm or yarn
+Purpose
 
-### Installation
+Frontend (View)
 
-1. Navigate to the project directory:
-```bash
-cd TechClubReact
-```
+React 18 / TypeScript / Vite
 
-2. Install dependencies:
-```bash
-npm install
-```
+Dynamic, component-based UI with client-side rendering.
 
-3. Start the development server:
-```bash
-npm run dev
-```
+Styling
 
-4. Open your browser and visit `http://localhost:5173`
+Tailwind CSS
 
-## Build for Production
+Atomic CSS for rapid, responsive design and modern effects.
 
-```bash
-npm run build
-```
+Backend (Logic)
 
-This creates an optimized build in the `dist` folder.
+Node.js / Express.js (MERN)
 
-## Project Structure
+RESTful API for serving events, announcements, and handling forms.
 
-```
-TechClubReact/
+Database (Data)
+
+MongoDB (Atlas)
+
+Flexible NoSQL solution for dynamic content management.
+
+Routing
+
+React Router v6
+
+Handles navigation and implements custom scroll offset logic for sticky header correction.
+
+✨ Key Features & Achieved Goals
+
+⚡ Dynamic Content Engine: Events (34+), Pricing, Rules, and Announcements are served dynamically via the Node.js API, eliminating the need for frontend code changes during event updates.
+
+🏛️ Optimized Team Hierarchy: Custom UI implementation for Faculty, Leadership (VC & Principal), and Student Core/Department Heads with manual image alignment control for precise photo centering.
+
+✅ Seamless Registration Flow: Register buttons auto-scroll to the search bar and link directly to Google Forms, bypassing the need for a custom payment gateway while maintaining data capture control.
+
+🎨 High-Fidelity UI/UX: Features a polished dark-theme aesthetic with glassmorphism, custom neon gradients, and a functional search/filter system for events.
+
+🧭 Robust Navigation: Implemented Scroll-Offset Fix in the Header to prevent content clipping and added a custom 404 NotFound page for professional error handling.
+
+🚀 Deployment Ready: Structure is optimized for immediate production deployment (Vercel/Netlify for frontend, any Node host for backend).
+
+📂 Project Structure
+
+fiestron-2025/
+├── server/              # <-- NEW BACKEND FOLDER
+│   ├── index.js         # Express Server & MongoDB Schemas
+│   ├── package.json     # Node Dependencies (Express, Mongoose, CORS)
+│   └── .env             # Database Connection String (Private)
+├── public/              # Static assets (Hero videos, Team images, etc.)
 ├── src/
-│   ├── components/
-│   │   ├── Header.tsx
-│   │   ├── Hero.tsx
-│   │   ├── About.tsx
-│   │   ├── Events.tsx
-│   │   ├── Gallery.tsx
-│   │   ├── Team.tsx
-│   │   └── Footer.tsx
-│   ├── App.tsx
-│   ├── index.css
-│   └── main.tsx
-├── index.html
-├── package.json
-├── tailwind.config.js
-├── postcss.config.js
-├── vite.config.ts
-└── tsconfig.json
-```
+│   ├── components/      # (Contains all completed UI components)
+│   ├── App.tsx          # Router, ScrollToTop, and Page Definitions
+│   └── index.css        # Global Styles and Tailwind Directives
+# ... (Other Config Files)
 
-## Technologies Used
 
-- **React 18** - UI library
-- **Vite** - Build tool and dev server
-- **TypeScript** - Type-safe JavaScript
-- **CSS** - CSS framework
-- **PostCSS** - CSS transformation
+🚀 Getting Started (Full-Stack)
 
-## Customization
+To run the entire dynamic application, both the server and client must be running:
 
-### Update Club Information
-Edit component files to customize:
-- Club name and branding in `Header.tsx`
-- Events in `Events.tsx`
-- Team members in `Team.tsx`
-- Contact info in `Footer.tsx`
+1. Database Setup
 
-### Colors and Styling
-- Modify colors in `tailwind.config.js`
-- Update component className attributes
+Set up your free MongoDB Atlas cluster.
 
-## Available Scripts
+Create a file named .env inside the server/ directory.
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
+Add your connection string: MONGO_URI="mongodb+srv://<user>:<password>@clustername/fiestron?..."
 
-## License
+2. Start the Backend Server
 
-MIT License - Feel free to use this project for your tech club!
+cd server
+npm install
+npm run dev
+# Server should now be running on http://localhost:5000 and connect to MongoDB.
+
+
+3. Start the Frontend Client
+
+(Open a new terminal)
+
+cd ..
+npm install
+npm run dev
+# Client should now be running on http://localhost:5173.
+
+
+🤝 Contributing & Maintenance
+
+Head of Website: Krishika (Maintainer)
+
+Data Updates: Event and Announcement lists are managed via the Backend API. Changes require updating the database, not redeploying the frontend code.
+
+<div align="center">
+<p>Proudly Vibe Coded for KC College's FIESTRON 2025</p>
+</div>

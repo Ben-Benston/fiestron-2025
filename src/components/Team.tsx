@@ -123,7 +123,7 @@ const Team: React.FC = () => {
     },
     { 
       name: 'Logistics', 
-      head: { name: 'Chetan Rathod', image: '/images/dept-logistics-head.jpg' },
+      head: { name: 'Chetan Rathod', image: '/images/dept-logistics-head.jpg',position: 'object-[50%_20%]' },
       cohead: { name: 'Tarang Jain', image: '/images/dept-logistics-cohead.jpg', position: 'object-[50%_85%]'},
       description: 'Handling on-ground requirements, equipment, and coordinating resource needs.', 
       emoji: '🚚' 
