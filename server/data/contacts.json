@@ -6,5 +6,13 @@
     "email": "krishikajain28@gmail.com",
     "subject": "Just checking the backend",
     "message": "Hey, Fiestron!"
+  },
+  {
+    "timestamp": "2025-11-21T13:26:09.855Z",
+    "type": "Sponsor Inquiry",
+    "companyName": "Krishika",
+    "contactEmail": "krishikajain28@gmail.com",
+    "phoneNumber": "7977675602",
+    "tier": "Silver"
   }
 ]
