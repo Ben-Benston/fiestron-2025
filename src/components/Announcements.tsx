@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // --- THEME HELPERS ---
 // Updated colors to match the Purple/Pink/Orange Fiestron Palette
-const getTypeStyles = (type: string) => {
+const getTypeStyles = (type) => {
   switch(type) {
     case 'important': 
       return 'border-pink-500/50 bg-pink-500/10 text-pink-200 shadow-[0_0_20px_rgba(236,72,153,0.15)]'
@@ -18,7 +18,7 @@ const getTypeStyles = (type: string) => {
   }
 }
 
-const getTypeEmoji = (type: string) => {
+const getTypeEmoji = (type) => {
   switch(type) {
     case 'important': return '🚨'
     case 'update': return '📝'
@@ -28,19 +28,26 @@ const getTypeEmoji = (type: string) => {
   }
 }
 
-const Announcements: React.FC = () => {
-  const [announcements, setAnnouncements] = useState<any[]>([]); 
+const Announcements = () => {
+  const [announcements, setAnnouncements] = useState([]); 
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null); 
-  const API_URL = 'http://localhost:5000/api/announcements';
+  const [error, setError] = useState(null); 
+  
+  // --- NEWSLETTER STATE ---
+  const [email, setEmail] = useState('');
+  const [isSubscribing, setIsSubscribing] = useState(false);
 
+  const API_URL = 'http://localhost:5000/api/announcements';
+  const CONTACT_API_URL = 'http://localhost:5000/api/contact'; // Reusing contact API for newsletter
+
+  // Fetch Announcements
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
         const response = await axios.get(API_URL);
         setAnnouncements(response.data);
         setIsLoading(false);
-      } catch (err: unknown) {
+      } catch (err) {
         let message = "Failed to load updates.";
         if (axios.isAxiosError(err) && err.response) {
             message = `Server Error (${err.response.status})`;
@@ -54,6 +61,33 @@ const Announcements: React.FC = () => {
     };
     fetchAnnouncements();
   },[]);
+
+  // --- SUBSCRIBE HANDLER ---
+  const handleSubscribe = async () => {
+    if (!email || !email.includes('@')) {
+        alert('Please enter a valid email address.');
+        return;
+    }
+
+    setIsSubscribing(true);
+
+    try {
+        // We send this to the contact endpoint, but mark the type as 'Newsletter'
+        await axios.post(CONTACT_API_URL, {
+            type: 'Newsletter Subscription',
+            email: email,
+            timestamp: new Date().toISOString()
+        });
+
+        alert('Successfully subscribed! You will receive updates shortly. 🚀');
+        setEmail(''); // Clear input
+    } catch (error) {
+        console.error('Subscription failed:', error);
+        alert('Failed to subscribe. Please ensure the server is running.');
+    } finally {
+        setIsSubscribing(false);
+    }
+  };
 
   return (
     <section id="announcements" className="relative w-full py-24 bg-black min-h-screen overflow-hidden font-sans selection:bg-purple-500/30">
@@ -156,10 +190,16 @@ const Announcements: React.FC = () => {
                     <input 
                         type="email" 
                         placeholder="Enter your email address" 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         className="flex-1 px-6 py-4 rounded-xl bg-black/40 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-purple-500/50 focus:bg-black/60 transition-all"
                     />
-                    <button className="px-8 py-4 rounded-xl font-bold text-white bg-gradient-to-r from-orange-600 via-pink-600 to-purple-600 hover:shadow-[0_0_30px_rgba(236,72,153,0.4)] transition-all duration-300 transform hover:scale-105">
-                        Subscribe
+                    <button 
+                        onClick={handleSubscribe}
+                        disabled={isSubscribing}
+                        className="px-8 py-4 rounded-xl font-bold text-white bg-gradient-to-r from-orange-600 via-pink-600 to-purple-600 hover:shadow-[0_0_30px_rgba(236,72,153,0.4)] transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        {isSubscribing ? 'Subscribing...' : 'Subscribe'}
                     </button>
                 </div>
             </div>

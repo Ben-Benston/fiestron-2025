@@ -30,5 +30,10 @@
     "email": "krishikajain28@gmail.com",
     "subject": "Checking again",
     "message": "How are u backend????"
+  },
+  {
+    "timestamp": "2025-11-22T19:01:58.195Z",
+    "type": "Newsletter Subscription",
+    "email": "krishikajain28@gmail.com"
   }
 ]

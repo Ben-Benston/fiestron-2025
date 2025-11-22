@@ -138,7 +138,7 @@ const Home: React.FC = () => {
       {/* --- ABOUT SECTION --- */}
       <section id="about" className="relative w-full py-32 z-10">
         <div className="max-w-7xl mx-auto px-6">
-          
+          2L+
           {/* Header */}
           <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-6 backdrop-blur-sm">
              <div>
@@ -174,8 +174,8 @@ const Home: React.FC = () => {
             {/* CARD 2: STATS STACK (4 Cols) */}
             <div className="md:col-span-4 flex flex-col gap-6">
                 <div className="glass-card rounded-3xl p-8 flex-1 flex flex-col justify-center items-center text-center group">
-                    <span className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white to-white/40 tracking-tight group-hover:scale-110 transition-transform">2L+</span>
-                    <span className="text-orange-400 text-xs font-bold tracking-widest uppercase mt-2">Prize Pool</span>
+                    <span className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white to-white/40 tracking-tight group-hover:scale-110 transition-transform">30+</span>
+                    <span className="text-orange-400 text-xs font-bold tracking-widest uppercase mt-2">Events</span>
                 </div>
                 <div className="glass-card rounded-3xl p-8 flex-1 flex flex-col justify-center items-center text-center group">
                     <span className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white to-white/40 tracking-tight group-hover:scale-110 transition-transform">25</span>
