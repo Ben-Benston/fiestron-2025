@@ -18,6 +18,19 @@ const Header: React.FC = () => {
 
   const handleNavClick = () => {
     setIsOpen(false) 
+
+    
+
+    useEffect(() => {
+    if (location.state?.scrollTo) {
+      const el = document.getElementById(location.state.scrollTo)
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }, 100) // slight delay ensures DOM is ready
+      }
+    }
+  }, [location.state])
   }
 
   return (

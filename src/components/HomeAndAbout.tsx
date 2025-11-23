@@ -117,7 +117,7 @@ const Home: React.FC = () => {
           </div>
           <h1 className="text-shine font-extrabold leading-tight text-6xl sm:text-7xl lg:text-8xl mb-6 tracking-tighter drop-shadow-2xl"
               style={{ fontFamily: 'FiestronCustom, sans-serif' }}>
-             F&nbsp;&nbsp;&nbsp;I&nbsp;&nbsp;&nbsp;E&nbsp;&nbsp;&nbsp;S&nbsp;&nbsp;&nbsp;T&nbsp;&nbsp;&nbsp;R&nbsp;&nbsp;&nbsp;O&nbsp;&nbsp;&nbsp;N
+              F&nbsp;&nbsp;&nbsp;I&nbsp;&nbsp;&nbsp;E&nbsp;&nbsp;&nbsp;S&nbsp;&nbsp;&nbsp;T&nbsp;&nbsp;&nbsp;R&nbsp;&nbsp;&nbsp;O&nbsp;&nbsp;&nbsp;N
           </h1>
           <p className="mt-4 text-white/80 text-lg sm:text-xl max-w-2xl mx-auto font-light leading-relaxed drop-shadow-lg">
             Your gateway to the next era of technology. Join the ultimate tech celebration. <br/>
@@ -160,7 +160,15 @@ const Home: React.FC = () => {
             <div className="md:col-span-8 glass-card rounded-3xl p-10 flex flex-col justify-between relative overflow-hidden group">
                <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                <div className="relative z-10">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-2xl shadow-lg mb-6">✦</div>
+                  {/* --- CHANGED ICON: Code Brackets instead of Generic Sparkle --- */}
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500/20 to-purple-600/20 border border-white/10 flex items-center justify-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                  </div>
+                  {/* ----------------------------------------------------------------- */}
+
                   <h4 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
                     Innovation meets <br/>
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-500">Expression.</span>
@@ -202,14 +210,14 @@ const Home: React.FC = () => {
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-3 mt-8">
-                     {['Hackathon', 'Code Quest', 'BGMI', 'Vintage Ventures'].map((tag) => (
-                        <span key={tag} className="px-4 py-2 rounded-lg bg-black/40 border border-white/10 text-sm text-white font-medium group-hover:border-purple-500/50 transition-colors">
-                           {tag}
-                        </span>
-                     ))}
-                     <span className="px-4 py-2 rounded-lg border border-white/10 text-sm text-white/40 italic">
-                       + 26 more
-                     </span>
+                      {['Hackathon', 'Code Quest', 'BGMI', 'Vintage Ventures'].map((tag) => (
+                         <span key={tag} className="px-4 py-2 rounded-lg bg-black/40 border border-white/10 text-sm text-white font-medium group-hover:border-purple-500/50 transition-colors">
+                            {tag}
+                         </span>
+                      ))}
+                      <span className="px-4 py-2 rounded-lg border border-white/10 text-sm text-white/40 italic">
+                        + 26 more
+                      </span>
                   </div>
                </div>
             </Link>
@@ -225,8 +233,8 @@ const Home: React.FC = () => {
                     { label: 'Carnival', icon: '🎡', color: 'text-orange-400' }
                   ].map((cat) => (
                     <li key={cat.label} className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
-                       <span className="text-xl">{cat.icon}</span>
-                       <span className={`text-sm font-bold ${cat.color}`}>{cat.label}</span>
+                        <span className="text-xl">{cat.icon}</span>
+                        <span className={`text-sm font-bold ${cat.color}`}>{cat.label}</span>
                     </li>
                   ))}
                </ul>

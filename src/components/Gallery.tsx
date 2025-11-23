@@ -1,175 +1,255 @@
-import React, { useState } from 'react'
-import Header from './Header'
-import Footer from './Footer'
+import React, { useState, useMemo } from 'react';
+import Header from './Header';
+import Footer from './Footer';
 
-// --- Image Data Structure ---
+// --- Type Definition ---
 interface GalleryItem {
   id: number;
+  category: '2024' | '2025';
   title: string;
-  category: 'coverage' | 'previous';
-  url: string; 
+  url: string;
   alt: string;
 }
 
+// --- Data ---
 const initialGalleryItems: GalleryItem[] = [
-  // FIESTRON 2024 (Previous Year)
-  { id: 1, title: 'Hackathon 2024 Winners', category: 'previous', url: '/images/gallery/hackathon-24.jpg', alt: 'Hackathon winners from 2024' },
-  { id: 2, title: 'Closing Ceremony 2024', category: 'previous', url: '/images/gallery/closing-24.jpg', alt: 'Closing ceremony last year' },
-  { id: 3, title: 'Faculty & Core Team 2024', category: 'previous', url: '/images/gallery/team-24.jpg', alt: 'Last year core team' },
-  // Current Coverage
-  { id: 4, title: 'Code Sprint In Progress', category: 'coverage', url: '/images/gallery/codesprint-live.jpg', alt: 'Live coding competition' },
-  { id: 5, title: 'Tech Talks Speaker', category: 'coverage', url: '/images/gallery/techtalk-speaker.jpg', alt: 'Speaker giving tech talk' },
-  { id: 6, title: 'Escape Room Setup', category: 'coverage', url: '/images/gallery/escape-room.jpg', alt: 'Escape room game setup' },
-  { id: 7, title: 'Meme Mania Booth', category: 'coverage', url: '/images/gallery/meme-booth.jpg', alt: 'Meme creation contest' },
-  { id: 8, title: 'Gaming Zone', category: 'coverage', url: '/images/gallery/gaming-zone.jpg', alt: 'Gaming tournament area' },
+  { id: 1, title: 'Community Leaders Meet', category: '2024', url: '../public/images/gallery/a3.jpg', alt: 'Community Leaders Meetup highlights' },
+  { id: 2, title: 'The Crowd View', category: '2024', url: '../public/images/gallery/a2.jpg', alt: 'A large group smiling together' },
+  { id: 3, title: 'Main Stage Performance', category: '2024', url: '../public/images/gallery/a7.jpg', alt: 'Performer on stage with lights' },
+  { id: 4, title: 'Deep Dive Workshop', category: '2024', url: '../public/images/gallery/a4.jpg', alt: 'Attendees in a focused workshop' },
+  { id: 5, title: 'Candid Laughter', category: '2024', url: '../public/images/gallery/a6.jpg', alt: 'Candid moment of laughter' },
+  { id: 6, title: 'Setup Details', category: '2024', url: '../public/images/gallery/a8.jpg', alt: 'Detailed view of event decorations' },
+  { id: 7, title: 'Hackathon Winners', category: '2024', url: '../public/images/gallery/a1.jpg', alt: 'Team celebrating a win' },
+  { id: 8, title: 'Code Quest', category: '2024', url: '../public/images/gallery/a5.jpg', alt: 'Closing ceremony crowd view' },
+];
+
+// --- Messages ---
+const preEventMessages = [
+  "Moments are still cooking… come back later 🏃‍♀️",
+  "Moments unlock once the event begins. 😊",
+  "Loading… the event hasn’t even happened yet. 🤭",
+  "Memories loading… 0% complete. 🫤",
+  "Brb, event hasn’t started. 🫣"
 ];
 
 const Gallery: React.FC = () => {
-  const [filter, setFilter] = useState('all')
-  const [lightboxImage, setLightboxImage] = useState<GalleryItem | null>(null)
+  const [filter, setFilter] = useState<'all' | '2024' | '2025'>('all');
+  const [lightboxImage, setLightboxImage] = useState<GalleryItem | null>(null);
+  const categories: ('all' | '2024' | '2025')[] = ['all', '2024', '2025'];
 
-  const filteredItems = filter === 'all'
-    ? initialGalleryItems
-    : initialGalleryItems.filter(item => item.category === filter)
+  // Filter items
+  const filteredItems = useMemo(() => {
+    if (filter === 'all') return initialGalleryItems;
+    return initialGalleryItems.filter(item => item.category === filter);
+  }, [filter]);
 
-  const categories = ['all', 'previous', 'coverage']
+  // Group items for "all"
+  const groupedItems = useMemo(() => {
+    if (filter !== 'all') return null;
+
+    const uniqueCategories = Array.from(new Set(initialGalleryItems.map(item => item.category))).sort();
+
+    const groups = uniqueCategories.map(cat => ({
+      category: cat as '2024' | '2025',
+      items: initialGalleryItems.filter(item => item.category === cat)
+    }));
+
+    if (!groups.find(g => g.category === '2025')) {
+      groups.push({ category: '2025', items: [] });
+    }
+
+    return groups;
+  }, [filter]);
+
+  // Random message
+  const randomPreEventMessage = useMemo(() => {
+    const randomIndex = Math.floor(Math.random() * preEventMessages.length);
+    return preEventMessages[randomIndex];
+  }, [filter]);
+
+  // Gallery card
+  const GalleryItemCard: React.FC<{ item: GalleryItem }> = ({ item }) => (
+    <div
+      key={item.id}
+      onClick={() => setLightboxImage(item)}
+      className="group relative border border-white/10 bg-white/[0.02] overflow-hidden cursor-zoom-in rounded-xl shadow-xl hover:shadow-purple-500/20 hover:border-purple-500/30 transition-all duration-500 break-inside-avoid"
+    >
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex flex-col justify-end p-5">
+        <h4 className='text-white font-semibold text-lg drop-shadow-lg'>{item.title}</h4>
+        <span className="text-orange-400 text-xs font-bold uppercase tracking-wider mt-1">
+          {item.category} Gallery
+        </span>
+      </div>
+
+      <img
+        src={item.url}
+        alt={item.alt}
+        className="w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700"
+        onError={(e) => {
+          (e.target as HTMLImageElement).src = `https://placehold.co/600x400/1a1a1a/FFF?text=${item.title.split(' ')[0]}`;
+        }}
+      />
+    </div>
+  );
+
+  // Pre-event message component **FIXED**
+  const PreEventMessage: React.FC = () => (
+    <div className="text-center p-10 my-12 max-w-3xl mx-auto">
+      <p className="text-xl font-light text-white mb-4 tracking-wider">
+        {randomPreEventMessage}
+      </p>
+    </div>
+  );
 
   return (
     <>
       <Header />
+
       <section className="relative pt-32 pb-24 min-h-screen bg-black text-white overflow-hidden font-sans selection:bg-purple-500/30">
 
-        {/* --- SHARED BACKGROUND --- */}
-        <div className="absolute inset-0 opacity-[0.05] pointer-events-none z-0" 
-             style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}>
-        </div>
-        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-           <div className="absolute top-20 right-[-10%] w-[600px] h-[600px] bg-purple-900/20 rounded-full blur-[120px]" />
-           <div className="absolute bottom-20 left-[-10%] w-[500px] h-[500px] bg-orange-900/10 rounded-full blur-[100px]" />
-        </div>
+        <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }} />
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          
+        <div className="relative max-w-7xl mx-auto px-6 z-10">
+
           {/* Header */}
           <div className="text-center mb-16">
-             <h2 className="text-sm font-bold text-orange-500 mb-3 tracking-[0.2em] uppercase animate-pulse">/ Gallery</h2>
-             <h3 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-white mb-6">
-               Event <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500">Highlights</span>
-             </h3>
-             <p className="text-white/50 text-lg max-w-2xl mx-auto">
-               Relive the moments. Showcasing the best captures from current and past Fiestron events.
-             </p>
+            <h2 className="text-sm font-bold text-orange-500 mb-3 tracking-[0.2em] uppercase">
+              / GALLERY
+            </h2>
+
+            <h3 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6">
+              Event <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500">Highlights</span>
+            </h3>
+
+            <p className="text-white/50 text-lg max-w-2xl mx-auto">
+              Curated visual captures from Fiestron events. Relive the defining moments.
+            </p>
           </div>
 
-          {/* Category Filter */}
-          <div className="flex justify-center gap-4 mb-16 flex-wrap">
+          {/* Filter Buttons */}
+          <div className="flex justify-center gap-3 mb-16 flex-wrap">
             {categories.map(cat => {
-              const isActive = filter === cat
+              const active = filter === cat;
+              const label =
+                cat === 'all' ? 'All Years' :
+                cat === '2024' ? 'Archives' :
+                'Live Feed';
+
               return (
                 <button
                   key={cat}
                   onClick={() => setFilter(cat)}
-                  className={`px-6 py-2 rounded-full font-bold uppercase tracking-wider text-xs transition-all duration-300 border
-                    ${isActive 
-                      ? 'bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.3)] scale-105'
-                      : 'bg-transparent text-white/60 border-white/10 hover:border-white/40 hover:text-white'}`
-                  }
+                  className={`px-5 py-2 rounded-xl font-medium text-xs border transition-all duration-300 shadow-lg 
+                    ${active
+                      ? 'bg-purple-500/90 text-white border-purple-500/90 shadow-purple-500/40'
+                      : 'bg-white/5 text-white/70 border-white/10 hover:border-purple-500/50 hover:text-white'
+                    }`}
                 >
-                  {cat === 'all' ? 'All' : cat === 'previous' ? 'Archives' : 'Live Coverage'}
+                  {label}
                 </button>
-              )
+              );
             })}
           </div>
 
-          {/* Gallery Grid */}
-          <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-            {filteredItems.map(item => (
-              <div
-                key={item.id}
-                onClick={() => setLightboxImage(item)}
-                className="group relative break-inside-avoid rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden cursor-zoom-in hover:border-purple-500/30 transition-all duration-500"
-              >
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex flex-col justify-end p-6">
-                    <span className="text-orange-400 text-xs font-bold uppercase tracking-wider mb-1">
-                        {item.category === 'previous' ? 'Archive' : 'Live'}
-                    </span>
-                    <h4 className="text-white font-bold text-lg leading-tight">{item.title}</h4>
-                </div>
+          {/* ALL view */}
+          {filter === 'all' ? (
+            groupedItems?.map((group, index) => (
+              <React.Fragment key={group.category}>
+                {!(group.category !== '2025' && group.items.length === 0) && (
+                  <div className={`mt-20 mb-8 text-center ${index > 0 ? 'border-t border-white/5 pt-10' : ''}`}>
+                    <h3 className="text-white/30 uppercase tracking-[0.2em] text-sm font-bold mb-4">
+                      {group.category} {group.category === '2024' ? 'ARCHIVES' : 'LIVE FEED'}
+                    </h3>
+                  </div>
+                )}
 
-                <img 
-                    src={item.url} 
-                    alt={item.alt}
-                    className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
-                    onError={(e) => { 
-                        (e.target as HTMLImageElement).onerror = null; 
-                        (e.target as HTMLImageElement).src = `https://placehold.co/600x400/1a1a1a/FFF?text=${item.title.split(' ')[0]}`; 
-                    }}
-                />
-              </div>
-            ))}
-          </div>
+                {group.items.length > 0 ? (
+                  <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+                    {group.items.map(item => (
+                      <GalleryItemCard key={item.id} item={item} />
+                    ))}
+                  </div>
+                ) : (
+                  group.category === '2025' && <PreEventMessage />
+                )}
+              </React.Fragment>
+            ))
+          ) : (
+            <>
+              {/* 2024 */}
+              {filter === '2024' && filteredItems.length > 0 && (
+                <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+                  {filteredItems.map(item => (
+                    <GalleryItemCard key={item.id} item={item} />
+                  ))}
+                </div>
+              )}
+
+              {/* 2025 → no items */}
+              {filter === '2025' && filteredItems.length === 0 && (
+                <PreEventMessage />
+              )}
+            </>
+          )}
+
         </div>
 
-        {/* --- LIGHTBOX MODAL --- */}
+        {/* Lightbox */}
         {lightboxImage && (
-          <div 
-            className="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md animate-in fade-in duration-300"
+          <div
+            className="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md"
             onClick={() => setLightboxImage(null)}
           >
-            <div 
-              className="relative w-full max-w-5xl max-h-[90vh] rounded-2xl overflow-hidden flex flex-col md:flex-row bg-[#0a0a0a] border border-white/10 shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
+            <div
+              className="relative w-full max-w-5xl max-h-[90vh] rounded-xl overflow-hidden flex flex-col md:flex-row bg-[#0a0a0a] border border-white/20 shadow-2xl"
+              onClick={e => e.stopPropagation()}
             >
-              {/* Image Container */}
-              <div className="flex-1 bg-black flex items-center justify-center relative">
-                  <img 
-                    src={lightboxImage.url} 
-                    alt={lightboxImage.alt}
-                    className="max-w-full max-h-[80vh] object-contain"
-                    onError={(e) => { 
-                        (e.target as HTMLImageElement).src = `https://placehold.co/800x600/1a1a1a/FFF?text=${lightboxImage.title}`; 
-                    }}
-                  />
+
+              <div className="flex-1 bg-black flex items-center justify-center">
+                <img
+                  src={lightboxImage.url}
+                  alt={lightboxImage.alt}
+                  className="max-w-full max-h-[80vh] object-contain"
+                />
               </div>
 
-              {/* Sidebar (Desktop) / Bottom Bar (Mobile) */}
-              <div className="w-full md:w-80 bg-[#111] border-l border-white/10 p-6 flex flex-col justify-center">
-                 <div className="mb-auto hidden md:block">
-                    <span className={`inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border ${
-                        lightboxImage.category === 'previous' 
-                        ? 'border-purple-500/30 text-purple-400 bg-purple-500/10' 
-                        : 'border-orange-500/30 text-orange-400 bg-orange-500/10'
-                    }`}>
-                        {lightboxImage.category === 'previous' ? '2024 Archive' : 'Live Feed'}
-                    </span>
-                 </div>
-                 
-                 <div>
-                    <h3 className="text-2xl font-bold text-white mb-2">{lightboxImage.title}</h3>
-                    <p className="text-white/40 text-sm">{lightboxImage.alt}</p>
-                 </div>
+              <div className="w-full md:w-80 bg-[#111] border-l border-white/10 p-6 flex flex-col">
+                <div className="hidden md:block mb-4">
+                  <span
+                    className={`inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest
+                      ${lightboxImage.category === '2024'
+                        ? 'text-purple-400 border border-purple-400/30 bg-purple-900/20'
+                        : 'text-orange-400 border border-orange-400/30 bg-orange-900/20'
+                      }`}
+                  >
+                    {lightboxImage.category === '2024' ? '2024 ARCHIVE' : '2025 LIVE'}
+                  </span>
+                </div>
 
-                 <div className="mt-auto pt-6 border-t border-white/10 flex justify-between items-center">
-                    <button className="text-white/40 hover:text-white text-sm transition-colors">Share</button>
-                    <button className="text-white/40 hover:text-white text-sm transition-colors">Download</button>
-                 </div>
+                <h3 className="text-2xl font-bold mb-2">{lightboxImage.title}</h3>
+                <p className="text-white/40 text-sm">{lightboxImage.alt}</p>
+
+                <div className="mt-auto pt-6 border-t border-white/10 flex justify-between items-center">
+                  <button className="text-white/40 hover:text-white text-sm transition-colors">Share Photo</button>
+                  <button className="text-white/40 hover:text-white text-sm transition-colors">Download Original</button>
+                </div>
               </div>
-              
-              {/* Close Button */}
-              <button 
+
+              <button
                 onClick={() => setLightboxImage(null)}
-                className="absolute top-4 right-4 md:left-4 md:right-auto p-2 rounded-full bg-black/50 hover:bg-white/20 text-white transition-colors z-20 backdrop-blur-md border border-white/10"
+                className="absolute top-3 right-3 p-2 w-10 h-10 rounded-full bg-black/70 hover:bg-white/20 text-white text-lg font-bold border border-white/20 backdrop-blur-sm transition-colors"
               >
                 ✕
               </button>
+
             </div>
           </div>
         )}
       </section>
+
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Gallery
+export default Gallery;

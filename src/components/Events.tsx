@@ -134,7 +134,7 @@ const Events: React.FC = () => {
     {
       id: 4,
       category: 'technical',
-      title: 'Geocities.AI',
+      title: 'Geocities AI',
       emoji: '🤖',
       description: 'Design a 90s aesthetic website using ONLY AI prompts to solve a modern problem.',
       fee: '₹50',

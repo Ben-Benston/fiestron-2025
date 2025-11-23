@@ -55,7 +55,7 @@ const Team: React.FC = () => {
       description: 'Strategic planning and team coordination.', 
       emoji: '🦁', 
       image: '/images/core-akanksha.jpg',
-      position: 'object-top' 
+      position: 'object-center' 
     },
     { 
       name: 'Rida Ansari', 
@@ -71,7 +71,7 @@ const Team: React.FC = () => {
       description: 'Technical oversight and resource management.', 
       emoji: '🦅', 
       image: '/images/core-qusai.jpg',
-      position: 'object-top' 
+      position: 'object-center' 
     },
     { 
       name: 'Mohammad Husain', 
@@ -95,7 +95,7 @@ const Team: React.FC = () => {
     { 
       name: 'Website', 
       head: { name: 'Krishika Jain', image: '/images/dept-web-head.jpg' },
-      cohead: { name: 'Anushka Thakur', image: '/images/dept-web-cohead.jpg' },
+      cohead: { name: 'Anushka Thakur', image: '/images/dept-web-cohead.jpg',position:'object-center' },
       description: 'Building, designing, and maintaining the official Fiestron website.', 
       emoji: '🌐' 
     },
@@ -157,7 +157,7 @@ const Team: React.FC = () => {
     },
     { 
       name: 'Technical', 
-      head: { name: 'Rahil Shaikh', image: '/images/dept-tech-head.jpg' },
+      head: { name: 'Rahil Shaikh', image: '/images/dept-tech-head.jpg',position: 'object-[50%_20%]' },
       cohead: { name: 'Asadullah Khan', image: '/images/dept-tech-cohead.jpg' }, 
       description: 'Handling sound, lights, stage setup, and providing technical support.', 
       emoji: '💻' 
