@@ -120,7 +120,7 @@ const Home: React.FC = () => {
              F&nbsp;&nbsp;&nbsp;I&nbsp;&nbsp;&nbsp;E&nbsp;&nbsp;&nbsp;S&nbsp;&nbsp;&nbsp;T&nbsp;&nbsp;&nbsp;R&nbsp;&nbsp;&nbsp;O&nbsp;&nbsp;&nbsp;N
           </h1>
           <p className="mt-4 text-white/80 text-lg sm:text-xl max-w-2xl mx-auto font-light leading-relaxed drop-shadow-lg">
-            The future is fluid. Join the ultimate tech celebration. <br/>
+            Your gateway to the next era of technology. Join the ultimate tech celebration. <br/>
             <span className="font-medium text-white">Workshops • Competitions • Networking</span>
           </p>
           <div className="mt-12 flex flex-col sm:flex-row justify-center gap-5">
@@ -138,7 +138,7 @@ const Home: React.FC = () => {
       {/* --- ABOUT SECTION --- */}
       <section id="about" className="relative w-full py-32 z-10">
         <div className="max-w-7xl mx-auto px-6">
-          2L+
+          
           {/* Header */}
           <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-6 backdrop-blur-sm">
              <div>
@@ -166,7 +166,7 @@ const Home: React.FC = () => {
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-500">Expression.</span>
                   </h4>
                   <p className="text-white/60 text-lg leading-relaxed max-w-2xl">
-                    Driven by the <strong>Computer Science Department</strong>, we push boundaries to empower students. Fiestron is where 5,000+ visionaries blend retro roots with AI futures.
+                    Driven and backed by the <strong>Computer Science Department</strong>, Fiestron serves as the college’s definitive platform for accelerating student talent. We bridge academic theory with practical application, focusing heavily on modern technology trends, including AI, data science, and emerging development stacks. Our mission is to transform academic knowledge into career-ready, high-impact projects.
                   </p>
                </div>
             </div>
@@ -241,7 +241,7 @@ const Home: React.FC = () => {
                    <div>
                       <h5 className="text-white font-bold text-lg">Minds Behind Fiestron</h5>
                       <p className="text-white/50 text-sm mt-1">
-                        Driven by <span className="text-white">100+ Core Members</span> across <span className="text-white">11 Departments</span>.
+                        Driven by <span className="text-white">50+ Core Members</span> across <span className="text-white">11 Departments</span>.
                       </p>
                    </div>
                 </div>
