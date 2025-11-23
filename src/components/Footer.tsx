@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
   }
 
   return (
-    <footer id="footer" className="relative w-full bg-black pt-20 pb-10 overflow-hidden font-sans selection:bg-purple-500/30 border-t border-white/10">
+    <footer id="footer" className="relative w-full bg-black pt-20 pb-10 overflow-hidden  border border-white/0">
       
       {/* --- SHARED BACKGROUND (Matches Hero/About) --- */}
       <div className="absolute inset-0 opacity-[0.05] pointer-events-none z-0" 
@@ -39,8 +39,8 @@ const Footer: React.FC = () => {
       
       {/* Bottom Glows */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-         <div className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] bg-purple-900/20 rounded-full blur-[100px]" />
-         <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-orange-900/20 rounded-full blur-[100px]" />
+         {/* <div className="absolute bottom-[-50%] left-[-10%] w-[500px] h-[500px] bg-purple-900/20 rounded-full blur-[100px]" /> */}
+         {/* <div className="absolute bottom-[-40%] right-[-10%] w-[500px] h-[500px] bg-orange-900/20 rounded-full blur-[100px]" /> */}
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
