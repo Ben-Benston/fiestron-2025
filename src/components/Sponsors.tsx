@@ -98,7 +98,7 @@ const Sponsors: React.FC = () => {
                   <img 
                     src={sponsor.img}
                     alt={sponsor.name}
-                    className="w-full h-full object-cover object-contain p-2"
+                    className="w-full h-full object-contain rounded-full"
                   />
                 </div>
 
