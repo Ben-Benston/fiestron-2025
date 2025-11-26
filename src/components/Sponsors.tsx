@@ -7,15 +7,19 @@ const Sponsors: React.FC = () => {
     contactEmail: '',
     phoneNumber: '',
     tier: 'Select Sponsorship Tier', 
+    img: '',
   });
   
   // Static sponsor data for display cards
   const sponsors = [
-    { name: "TechFlow", tier: "platinum", logo: "🏢" },
-    { name: "CyberCore", tier: "platinum", logo: "🔬" },
-    { name: "Quantum Leap", tier: "gold", logo: "⚡" },
-    { name: "Nebula Systems", tier: "silver", logo: "☁️" },
-    { name: "Pixel Forge", tier: "silver", logo: "🎨" },
+    { name: "BiE - Beauty in Everything", tier: "platinum", img: "../public/images/sponsors/bie.png" },
+    { name: "The Beaded Babe", tier: "platinum", img: "../public/images/sponsors/beaded.png" },
+    { name: "SOE - Building Future", tier: "gold", img: "../public/images/sponsors/soe.png" },
+    { name: "Satyam Collection", tier: "silver", img: "../public/images/sponsors/satyam.png" },
+    { name: "DoughY", tier: "silver", img: "../public/images/sponsors/doughy.png" },
+    { name: "Wrapping & Co.", tier: "silver", img: "../public/images/sponsors/wrapping.png" },
+    { name: "MAAC - Maya Academy of Advanced Cinematics", tier: "silver", img: "../public/images/sponsors/maac.png" },
+    { name: "CreatED", tier: "silver", img: "../public/images/sponsors/created.png" },
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -88,21 +92,29 @@ const Sponsors: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none" />
               
               <div className="relative z-10">
-                  <div className="w-20 h-20 mx-auto mb-6 flex items-center justify-center rounded-full bg-black/30 border border-white/10 text-4xl shadow-inner">
-                    {sponsor.logo}
-                  </div>
-                  <h3 className="text-white text-xl font-bold mb-3 tracking-tight">
-                    {sponsor.name}
-                  </h3>
-                  <span className={`inline-block px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase border ${
-                      sponsor.tier === 'platinum' 
-                      ? 'bg-purple-500/20 text-purple-300 border-purple-500/30' 
-                      : sponsor.tier === 'gold' 
-                        ? 'bg-orange-500/20 text-orange-300 border-orange-500/30'
-                        : 'bg-white/10 text-gray-300 border-white/20'
-                  }`}>
-                    {sponsor.tier} Partner
-                  </span>
+
+                {/* IMAGE ICON IN CIRCLE */}
+                <div className="w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden flex items-center justify-center rounded-full bg-black/30 border border-white/10 shadow-inner overflow-hidden">
+                  <img 
+                    src={sponsor.img}
+                    alt={sponsor.name}
+                    className="w-full h-full object-cover object-contain p-2"
+                  />
+                </div>
+
+                <h3 className="text-white text-xl font-bold mb-3 tracking-tight">
+                  {sponsor.name}
+                </h3>
+
+                <span className={`inline-block px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase border ${
+                    sponsor.tier === 'platinum' 
+                    ? 'bg-purple-500/20 text-purple-300 border-purple-500/30' 
+                    : sponsor.tier === 'gold' 
+                      ? 'bg-orange-500/20 text-orange-300 border-orange-500/30'
+                      : 'bg-white/10 text-gray-300 border-white/20'
+                }`}>
+                  {sponsor.tier} Partner
+                </span>
               </div>
             </div>
           ))}
@@ -140,7 +152,6 @@ const Sponsors: React.FC = () => {
 
           {/* FORM CARD */}
           <div className="p-10 rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-xl relative overflow-hidden">
-            {/* Subtle background gradient for form */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 rounded-full blur-[80px] pointer-events-none translate-x-1/2 -translate-y-1/2" />
 
             <h3 className="text-white text-2xl font-bold mb-2">Become a Partner</h3>
