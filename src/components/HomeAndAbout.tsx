@@ -154,34 +154,65 @@ const Home: React.FC = () => {
           </div>
 
           {/* POLISHED BENTO GRID (12 Cols) */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[minmax(180px,auto)]">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[minmax(180px,auto)] overflow-y-auto ">
             
             {/* CARD 1: VISION (8 Cols) */}
-            <div className="md:col-span-8 glass-card rounded-3xl p-10 flex flex-col justify-between relative overflow-hidden group">
-               <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-               <div className="relative z-10">
-                  {/* --- CHANGED ICON: Code Brackets instead of Generic Sparkle --- */}
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500/20 to-purple-600/20 border border-white/10 flex items-center justify-center mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="16 18 22 12 16 6"></polyline>
-                        <polyline points="8 6 2 12 8 18"></polyline>
-                    </svg>
-                  </div>
-                  {/* ----------------------------------------------------------------- */}
+            <div className="md:col-span-8 glass-card rounded-3xl relative overflow-y-scroll group h-[400px]">
 
-                  <h4 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
-                    Innovation meets <br/>
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-500">Expression.</span>
-                  </h4>
-                  <p className="text-white/60 text-lg leading-relaxed max-w-2xl">
-                    Driven and backed by the <strong>Computer Science Department</strong>, Fiestron serves as the college’s definitive platform for accelerating student talent. We bridge academic theory with practical application, focusing heavily on modern technology trends, including AI, data science, and emerging development stacks. Our mission is to transform academic knowledge into career-ready, high-impact projects.
-                  </p>
-               </div>
-            </div>
+            {/* BACKGROUND IMAGE */}
+            <img
+              src="../public/images/home&about/h&a1.png"
+              alt=""
+              className="absolute inset-0 w-full h-[535px] object-cover opacity-60 group-hover:opacity-70 transition-opacity duration-500"
+            />
 
+            {/* OVERLAY GRADIENT (for better text Glow) */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60 h-[535px] "></div>
+
+            {/* TEXT CONTENT */}  
+            <div className="relative z-10 p-8">
+    
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500/20 to-purple-600/20 
+              border border-white/10 flex items-center justify-center mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+        </div>
+
+    <h4 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+      Expanding Tech&nbsp;
+      <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-500">
+      Horizons.
+      </span>
+    </h4>
+
+      <div className="max-h-[300px]">
+    <p className="text-white/70 text-lg leading-relaxed max-w-2xl">
+    Fiestron is the Annual Technical Symposium of Kishinchand Chellaram (K.C.) College, 
+    presented by the <strong> Department of Computer Science</strong>.
+
+    Established to promote academic excellence, technological literacy,
+    and professional competency, Fiestron serves as a prestigious platform that 
+    facilitates the exchange of knowledge and encourages the practical application of 
+    cutting-edge technological concepts.
+
+    The symposium features a dynamic series of competitions,
+    expert-led sessions, and collaborative activities designed to 
+    simulate real-world problem-solving environments. 
+    
+    Fiestron attracts participants from over 50 leading colleges, 
+    reflecting K.C. College's sustained commitment to cultivating intellectual 
+    rigor and nurturing talent for the evolving technological industry.  
+    </p>
+  </div>
+ </div>
+</div>
             {/* CARD 2: STATS STACK (4 Cols) */}
             <div className="md:col-span-4 flex flex-col gap-6">
                 <div className="glass-card rounded-3xl p-8 flex-1 flex flex-col justify-center items-center text-center group">
+                    <img src="" alt="" />
                     <span className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white to-white/40 tracking-tight group-hover:scale-110 transition-transform">30+</span>
                     <span className="text-orange-400 text-xs font-bold tracking-widest uppercase mt-2">Events</span>
                 </div>

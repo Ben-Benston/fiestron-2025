@@ -37,11 +37,11 @@ const Header: React.FC = () => {
     // CHANGED: 
     // 1. 'sticky' -> 'fixed' to float over content
     // 2. Top spacing 'top-6' for floating effect
-    <header className="fixed top-0 left-0 w-full z-50 px-4 sm:px-6 lg:px-8 py-6 pointer-events-none">
+    <header className="fixed top-0 left-0 w-full  z-50 px-4 sm:px-6 lg:px-8 py-6 pointer-events-none">
       
       {/* Glassmorphism Container - Pointer events auto to make this clickable */}
-      <div className="pointer-events-auto max-w-5xl mx-auto flex justify-center">
-        <div className="flex items-center justify-between px-8 py-3 rounded-full bg-black/60 backdrop-blur-xl border border-white/10 shadow-2xl shadow-purple-500/10 w-full transition-all duration-300 hover:border-white/20 hover:bg-black/70">
+      <div className="pointer-events-auto shadow-[0_0_8px_rgba(250,126,29,0.22)] rounded-full max-w-5xl  mx-auto flex justify-center">
+        <div className="flex items-center  justify-between px-8 py-3 rounded-full bg-black/60 backdrop-blur-xl border border-white/10 shadow-2xl shadow-purple-500/10 w-full transition-all duration-300 hover:border-white/20 hover:bg-black/70">
           
           {/* Logo */}
           <div 

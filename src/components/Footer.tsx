@@ -58,14 +58,28 @@ const Footer: React.FC = () => {
               Celebrating innovation at KC College.
             </p>
             {/* Social Icons Row */}
-            <div className="flex gap-4">
-                {['Twitter', 'Instagram', 'LinkedIn'].map((social) => (
-                    <a key={social} href="#" className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-purple-500/50 transition-all">
-                        {/* Placeholder Icons - Replace with SVGs if needed */}
-                        <span className="text-xs">↗</span>
-                    </a>
-                ))}
-            </div>
+<div className="flex gap-4">
+
+  {/* Instagram */}
+  <a 
+    href="https://www.instagram.com/kc.techclub" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-purple-500/50 transition-all"
+  >
+    {/* Instagram SVG */}
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      viewBox="0 0 24 24" 
+      fill="currentColor" 
+      className="w-4 h-4"
+    >
+      <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.25a1.25 1.25 0 112.5 0 1.25 1.25 0 01-2.5 0z"/>
+    </svg>
+  </a>
+
+</div>
+
           </div>
 
           {/* Column 2: Navigation */}
@@ -116,7 +130,7 @@ const Footer: React.FC = () => {
                  <span className="text-lg opacity-50 group-hover:opacity-100 transition-opacity">📞</span>
                  <div>
                     <p className="text-xs text-white/40 uppercase tracking-wide">Phone</p>
-                    <p className="text-sm text-white/80">+91 98765 43210</p>
+                    <p className="text-sm text-white/80">+91 79776 75602</p>
                  </div>
               </div>
 

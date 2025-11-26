@@ -13,13 +13,12 @@ interface EventData {
   fee: string;
   teamSize: string;
   formLink?: string; 
-  maxParticipants?: string;
-  duration?: string;
+  image: string; 
   details: {
     rounds?: string[];
     format?: string[];
     rules: string[];
-    requirements?: string[];
+    requirements?: string[]; // Added to match your interface
     judging?: string[];
     categories?: string[]; 
     prizes?: string[]; 
@@ -43,11 +42,54 @@ const Events: React.FC = () => {
     }
   }, [location]);
 
-  // --- EVENT DATABASE (Full Detailed Data) ---
+  // --- STYLING THEMES (The "Instagram" Vibe) ---
+  const getTheme = (category: string) => {
+    switch(category) {
+      case 'technical':
+        return {
+          gradient: 'from-indigo-500 via-purple-500 to-pink-500',
+          text: 'text-purple-400',
+          bg: 'bg-purple-500/10',
+          border: 'border-purple-500/20',
+          button: 'bg-gradient-to-r from-indigo-600 to-purple-600'
+        };
+      case 'non-technical':
+        return {
+          gradient: 'from-pink-500 via-rose-500 to-yellow-500',
+          text: 'text-pink-400',
+          bg: 'bg-pink-500/10',
+          border: 'border-pink-500/20',
+          button: 'bg-gradient-to-r from-pink-600 to-rose-600'
+        };
+      case 'gaming':
+        return {
+          gradient: 'from-emerald-400 via-green-500 to-teal-500',
+          text: 'text-green-400',
+          bg: 'bg-green-500/10',
+          border: 'border-green-500/20',
+          button: 'bg-gradient-to-r from-emerald-600 to-teal-600'
+        };
+      case 'carnival':
+        return {
+          gradient: 'from-orange-400 via-amber-500 to-yellow-500',
+          text: 'text-orange-400',
+          bg: 'bg-orange-500/10',
+          border: 'border-orange-500/20',
+          button: 'bg-gradient-to-r from-orange-600 to-amber-600'
+        };
+      default:
+        return {
+          gradient: 'from-gray-600 to-gray-400',
+          text: 'text-white',
+          bg: 'bg-white/10',
+          border: 'border-white/20',
+          button: 'bg-white/10'
+        };
+    }
+  }
+
+  // --- EVENT DATABASE (Exact Data Provided) ---
   const events: EventData[] = [
-    // =======================
-    //   TECHNICAL EVENTS
-    // =======================
     {
       id: 1,
       category: 'technical',
@@ -57,6 +99,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/CTGfGhXCL4Pnbe616',
+      image: '../src/components/events/code-quest.gif', 
       details: {
         rounds: [
           'Round 1: Retro Computer Trivia + Modern Practices (MCQs - 20 mins)',
@@ -86,6 +129,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/NKx9zg1vyEy7mYrd7',
+      image: '../src/components/events/hackathon.png',
       details: {
         rounds: ['Build Phase (Reimagine vintage concept)', 'Final Pitch (10 mins)'],
         rules: [
@@ -113,6 +157,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/TMytyAesfsZRSbwg8',
+      image: '../src/components/events/syntax-sprint.png',
       details: {
         rounds: [
           'Round 1: The Starter (Vanilla HTML/CSS/JS - 45 mins)',
@@ -140,6 +185,7 @@ const Events: React.FC = () => {
       fee: '₹50',
       teamSize: 'Individual',
       formLink: 'https://forms.gle/whv4Xy1xWBSJJDaX7',
+      image: '../src/components/events/geocites-ai.png',
       details: {
         rules: [
           'All code/design must be AI-generated (Prompts must be documented).',
@@ -165,6 +211,7 @@ const Events: React.FC = () => {
       fee: '₹50',
       teamSize: 'Individual',
       formLink: 'https://forms.gle/JUbreJcD7LZcdjGB6',
+      image: '../src/components/events/design-exe.png',
       details: {
         rules: [
           'ONLY Microsoft Paint allowed (Modern version with layers allowed).',
@@ -190,6 +237,7 @@ const Events: React.FC = () => {
       fee: '₹50',
       teamSize: 'Individual',
       formLink: 'https://forms.gle/5MoNHYyqkEPLFwNS7',
+      image: '../src/components/events/retro-rendered.png',
       details: {
         rules: [
           'Use AI tools (Midjourney/DALL-E/Firefly).',
@@ -215,6 +263,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/HWvd6bbuyDzaifWE6',
+      image: '../src/components/events/vintage-venture.png',
       details: {
         rules: [
           'Must choose a real failed company.',
@@ -231,10 +280,6 @@ const Events: React.FC = () => {
         ]
       }
     },
-
-    // =======================
-    //   NON-TECHNICAL EVENTS
-    // =======================
     {
       id: 8,
       category: 'non-technical',
@@ -244,6 +289,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/FhY7Lgn4EzQmysNq7',
+      image: '../src/components/events/brain-buster.png',
       details: {
         rounds: [
           'Round 1: Retro Rush (80s-2000s Trivia - Quick fire)',
@@ -268,6 +314,7 @@ const Events: React.FC = () => {
       fee: '₹200',
       teamSize: 'Team of 4',
       formLink: 'https://forms.gle/K9CbwhkwKmAfzTJP8',
+      image: '../src/components/events/escape-protocol.png',
       details: {
         rounds: [
           'Level 1: The Forgotten Server Room (Beginner)',
@@ -292,6 +339,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/e9EbPwub7pQnLBwj7',
+      image: '../src/components/events/meme-mania.jpeg',
       details: {
         rules: [
           'Content must be original (no reposts).',
@@ -312,6 +360,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/Y9frmA36fcc4r4tNA',
+      image: '../src/components/events/ad-a-bit.png',
       details: {
         rules: [
           'Theme/Product announced in advance.',
@@ -332,6 +381,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/PRjaquuraJB5RdFj8',
+      image: '../src/components/events/logo-lore.gif',
       details: {
         rounds: [
           'Round 1: Distorted Brands (Pixelated/Partial)',
@@ -356,6 +406,7 @@ const Events: React.FC = () => {
       fee: '₹50',
       teamSize: 'Individual',
       formLink: 'https://forms.gle/GxRmu4xewdEmBYWN9',
+      image: '../src/components/events/one-mic-stand.jpeg',
       details: {
         rules: [
           'Draw a "Rewired" theme card on stage (e.g., "Nostalgia").',
@@ -367,10 +418,6 @@ const Events: React.FC = () => {
         judging: ['Creativity (25%)', 'Theme Incorporation (20%)', 'Stage Presence (20%)', 'Technical Skill (20%)', 'Entertainment Value (15%)']
       }
     },
-
-    // =======================
-    //   GAMING EVENTS
-    // =======================
     {
       id: 14,
       category: 'gaming',
@@ -380,6 +427,7 @@ const Events: React.FC = () => {
       fee: '₹200',
       teamSize: 'Team of 4 (1 Sub)',
       formLink: 'https://forms.gle/PfwM6sorLYNdfYjM6',
+      image: '../src/components/events/bgmi.jpeg',
       details: {
         rules: [
           'Mobile only (Android/iOS).',
@@ -399,6 +447,7 @@ const Events: React.FC = () => {
       fee: '₹50',
       teamSize: 'Individual',
       formLink: 'https://forms.gle/CL2fSX59r49cMAxy8',
+      image: '../src/components/events/fifa-tournament.jpeg',
       details: {
         rules: [
           'Latest FIFA version.',
@@ -418,6 +467,7 @@ const Events: React.FC = () => {
       fee: '₹50',
       teamSize: 'Individual',
       formLink: 'https://forms.gle/qcxpdiqcDKoXpc62A',
+      image: '../src/components/events/chess.png',
       details: {
         rules: [
           'FIDE rules apply.',
@@ -437,6 +487,7 @@ const Events: React.FC = () => {
       fee: '₹50',
       teamSize: 'Individual',
       formLink: 'https://forms.gle/T4Zh4xJF7Hua68HJA',
+      image: '../src/components/events/table-tennis.png',
       details: {
         rules: [
           'ITTF rules apply.',
@@ -455,6 +506,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/SD8A6vguXjFbPB2H9',
+      image: '../src/components/events/carrom.png',
       details: {
         rules: [
           'ICF rules.',
@@ -474,6 +526,7 @@ const Events: React.FC = () => {
       fee: '₹300',
       teamSize: 'Team of 6 (1 Sub)',
       formLink: 'https://forms.gle/H8Zuka6id7WjX2R36',
+      image: '../src/components/events/box-cricket.jpeg',
       details: {
         rules: [
           'Underarm bowling.',
@@ -493,6 +546,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/VoM1j62BPmiuJy6eA',
+      image: '../src/components/events/netflix-trivia.jpeg',
       details: {
         rules: [
           'No phones/internet.',
@@ -502,10 +556,6 @@ const Events: React.FC = () => {
         judging: ['Accuracy (100%)', 'Tie-breaker: Speed of submission']
       }
     },
-
-    // =======================
-    //   CARNIVAL GAMES
-    // =======================
     {
       id: 21,
       category: 'carnival',
@@ -514,6 +564,8 @@ const Events: React.FC = () => {
       description: 'Drop a coin into a glass inside a water bucket.',
       fee: '₹30',
       teamSize: 'Individual',
+      formLink: '',
+      image: '../src/components/events/coin-drop.jpeg',
       details: {
         rules: ['Drop from chest height.', 'Must stay in cup.', 'No leaning over.', 'One coin per entry.'],
         prizes: ['Success: Chocolate/Keychain', '3 Drops: Bonus Prize']
@@ -527,6 +579,8 @@ const Events: React.FC = () => {
       description: 'Build and dismantle a cup pyramid in 10s.',
       fee: '₹30',
       teamSize: 'Individual',
+      formLink: '',
+      image: '../src/components/events/stack-attack.jpeg',
       details: {
         rules: ['10 cups.', '4-3-2-1 structure.', 'One hand only.', 'Time limit: 10s.', 'Cups must not topple.'],
         prizes: ['Success: Surprise Event Entry', '< 7 secs: Bonus Chocolate']
@@ -540,6 +594,8 @@ const Events: React.FC = () => {
       description: 'Toss tickets to land near a target line.',
       fee: '₹30',
       teamSize: 'Individual',
+      formLink: '',
+      image: '../src/components/events/ticket-toss.jpeg',
       details: {
         rules: ['Stand behind throwing line.', 'Closest without crossing wins.', 'Best of 5 throws.', 'Must land flat.'],
         prizes: ['Within 6 inches: Coupon', 'Closest Overall: Special Prize']
@@ -553,6 +609,8 @@ const Events: React.FC = () => {
       description: 'Hold a wet brick with two fingers for 60s.',
       fee: '₹30',
       teamSize: 'Individual',
+      formLink: '',
+      image: '../src/components/events/brick-balance.jpeg',
       details: {
         rules: ['Two fingers only (Thumb+1).', 'Horizontal hold.', 'No resting on body.', '60 seconds.'],
         prizes: ['Success: Merchandise', 'Record Holder: Grand Prize']
@@ -566,6 +624,8 @@ const Events: React.FC = () => {
       description: 'Flip coins from elbow and catch them mid-air.',
       fee: '₹30',
       teamSize: 'Individual',
+      formLink: '',
+      image: '../src/components/events/elbow-flip.jpeg',
       details: {
         rules: ['Place 5-10 coins on elbow.', 'Flip and catch with same hand.', 'One attempt.', 'No assisting hand.'],
         prizes: ['3+ Caught: Chocolate', '7+ Caught: Premium', 'All 10: Grand Prize']
@@ -579,6 +639,8 @@ const Events: React.FC = () => {
       description: 'Move a ball across a table using only breath.',
       fee: '₹30',
       teamSize: 'Individual',
+      formLink: '',
+      image: '../src/components/events/blow-the-ball.jpeg',
       details: {
         rules: ['No touching with hands/body.', 'Must cross finish line.', '30 seconds limit.'],
         prizes: ['Success: Gift', '< 15 secs: Premium Prize']
@@ -592,6 +654,8 @@ const Events: React.FC = () => {
       description: 'Knock down a cup pyramid with rubber bands.',
       fee: '₹30',
       teamSize: 'Individual',
+      formLink: '',
+      image: '../src/components/events/rubber-band-shot.jpeg',
       details: {
         rules: ['Distance 8-10ft.', '3-5 rubber bands.', 'All cups must fall.', 'Pyramid must be dismantled.'],
         prizes: ['Success: Chocolate', '1-2 shots: Premium Prize']
@@ -605,6 +669,8 @@ const Events: React.FC = () => {
       description: 'Transfer paper balls using straw suction.',
       fee: '₹30',
       teamSize: 'Individual',
+      formLink: '',
+      image: '../src/components/events/straw-suction.jpeg',
       details: {
         rules: ['No hands.', 'Transfer 7+ balls.', '60 seconds limit.', 'Only inhaling suction allowed.'],
         prizes: ['7+ balls: Treat', '12+ balls: Premium Box']
@@ -618,6 +684,8 @@ const Events: React.FC = () => {
       description: 'Decode emoji sequences within time limit.',
       fee: '₹30',
       teamSize: 'Individual',
+      formLink: '',
+      image: '../src/components/events/emoji-riddle.jpeg',
       details: {
         rules: ['5 mins total.', 'Solve as many as possible.', 'No phones.', 'Spelling must be recognizable.'],
         prizes: ['5+ Correct: Small Prize', '10+ Correct: Premium', 'All Correct: Grand Prize']
@@ -631,6 +699,8 @@ const Events: React.FC = () => {
       description: 'Say the ink color, not the word.',
       fee: '₹30',
       teamSize: 'Individual',
+      formLink: '',
+      image: '../src/components/events/color-trick.jpeg',
       details: {
         rules: ['Read chart top to bottom.', 'Say INK COLOR not word.', '30 seconds.', 'One restart allowed.'],
         prizes: ['15+ Correct: Chocolate', '25+ Correct: Premium', 'Perfect Score: Grand Prize']
@@ -644,6 +714,8 @@ const Events: React.FC = () => {
       description: 'Bet on dice roll outcomes.',
       fee: '₹30',
       teamSize: 'Individual',
+      formLink: '',
+      image: '../src/components/events/7up-7down.jpeg',
       details: {
         rules: ['Bet on <7, >7, or =7.', 'One roll.', 'No changing bets.', 'Rolled by organizer.'],
         prizes: ['Correct: Chocolate', 'Lucky 7: Triple Prize']
@@ -657,6 +729,8 @@ const Events: React.FC = () => {
       description: 'Read backwards words or palindromes.',
       fee: '₹30',
       teamSize: 'Individual',
+      formLink: '',
+      image: '../src/components/events/confusing-words.jpeg',
       details: {
         rules: ['45 seconds.', 'Decode and say/write word.', 'Spelling counts.', 'Skip allowed.'],
         prizes: ['8+ Correct: Small Prize', '15+ Correct: Premium', 'All Correct: Grand Prize']
@@ -670,6 +744,8 @@ const Events: React.FC = () => {
       description: 'Stack coins vertically without toppling.',
       fee: '₹30',
       teamSize: 'Individual',
+      formLink: '',
+      image: '../src/components/events/penny-stack.jpeg',
       details: {
         rules: ['Free-standing tower.', '45 seconds.', 'Must stand for 3s.', 'No adhesive.'],
         prizes: ['15+ Coins: Chocolate', '25+ Coins: Premium Box', 'Record Holder: Merch']
@@ -683,6 +759,8 @@ const Events: React.FC = () => {
       description: 'Shoot paper balls into bowls at distances.',
       fee: '₹30',
       teamSize: 'Individual',
+      formLink: '',
+      image: '../src/components/events/paper-ball-basket.jpeg',
       details: {
         rules: ['10 shots total.', 'Different points for distances.', 'Min 15 pts to win.'],
         prizes: ['15+ Pts: Surprise', '30+ Pts: Premium', '45+ Pts: Grand Prize']
@@ -690,7 +768,7 @@ const Events: React.FC = () => {
     }
   ]
 
-  // Filter Logic
+  // --- Filter Logic ---
   const filteredEvents = events.filter(e => {
     const matchesCategory = filter === 'all' ? true : e.category === filter
     const matchesSearch = e.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -700,69 +778,61 @@ const Events: React.FC = () => {
 
   const categories = ['all', 'technical', 'non-technical', 'gaming', 'carnival']
 
-  // Category Color Helpers
-  const getCategoryColor = (cat: string) => {
-    switch(cat) {
-        case 'technical': return 'text-purple-400 border-purple-500/30 bg-purple-500/10';
-        case 'non-technical': return 'text-pink-400 border-pink-500/30 bg-pink-500/10';
-        case 'gaming': return 'text-green-400 border-green-500/30 bg-green-500/10';
-        case 'carnival': return 'text-orange-400 border-orange-500/30 bg-orange-500/10';
-        default: return 'text-white border-white/20 bg-white/5';
-    }
-  }
-
   return (
     <>
       <Header />
-      <section className="relative pt-32 pb-20 min-h-screen bg-black text-white overflow-hidden font-sans selection:bg-purple-500/30">
+      <section className="relative pt-32 pb-20 min-h-screen bg-[#0a0a0a] text-white overflow-hidden font-sans selection:bg-purple-500/30">
 
-        {/* --- SHARED BACKGROUND --- */}
-        <div className="absolute inset-0 opacity-[0.05] pointer-events-none z-0" 
-             style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}>
-        </div>
-        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-           <div className="absolute top-20 left-[-10%] w-[600px] h-[600px] bg-purple-900/20 rounded-full blur-[120px]" />
-           <div className="absolute bottom-20 right-[-10%] w-[500px] h-[500px] bg-orange-900/10 rounded-full blur-[100px]" />
-        </div>
+        {/* --- Background (Clean Dark Base) --- */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#0a0a0a] via-transparent to-[#0a0a0a] z-0 pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
 
-          {/* Header */}
-          <div className="text-center mb-16">
-             <h2 className="text-sm font-bold text-orange-500 mb-3 tracking-[0.2em] uppercase animate-pulse">/ Compete & Win</h2>
-             <h3 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-white mb-6">
-               Explore <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500">Events</span>
-             </h3>
-             <p className="text-white/50 text-lg max-w-2xl mx-auto">
-               Browse the complete list of 30+ competitions. <br/> From coding marathons to carnival chaos.
-             </p>
+          {/* --- Header Section --- */}
+          <div className="text-center mb-24">
+            <h2 className="text-sm font-bold text-orange-500 mb-3 tracking-[0.2em] uppercase">/ Compete & Win</h2>
+            <h3 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4 text-white">
+              Event <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500">Catalog</span>
+            </h3>
+            <p className="text-neutral-400 max-w-2xl mx-auto text-lg">
+              Explore over 30+ curated events designed to challenge your skills, creativity, and wit.
+            </p>
           </div>
 
-          {/* Search & Filter */}
-          <div id="event-search" className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
-             {/* Search */}
-             <div className="relative w-full md:w-96 group">
+          {/* --- Search & Filter Section --- */}
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-16">
+             {/* Search Bar */}
+             <div className="relative w-full md:w-[400px] group">
                 <input 
                   type="text" 
                   placeholder="Search events..." 
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full py-3 pl-12 pr-6 rounded-full bg-white/5 border border-white/10 focus:border-purple-500 focus:bg-black/50 text-white placeholder-white/30 outline-none transition-all backdrop-blur-sm"
+                  className="w-full py-3.5 pl-12 pr-4 rounded-2xl bg-[#121212] border border-white/10 focus:border-white/30 text-white placeholder-neutral-500 outline-none transition-all shadow-lg"
                 />
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 group-focus-within:text-purple-400 transition-colors">🔍</span>
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 group-focus-within:text-white transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                  </svg>
+                </span>
              </div>
 
-             {/* Filters */}
+             {/* Filter Buttons */}
              <div className="flex flex-wrap gap-2 justify-center">
                 {categories.map(cat => (
                   <button
                     key={cat}
                     onClick={() => setFilter(cat)}
-                    className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider border transition-all duration-300
-                      ${filter === cat 
-                        ? 'bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.3)] scale-105'
-                        : 'bg-transparent text-white/60 border-white/10 hover:border-white/40 hover:text-white'}`
-                    }
+                    className={`px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 border ${
+                      filter === cat 
+                        ? cat === 'all' ? 'bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.3)]' :
+                          cat === 'technical' ? 'bg-purple-500/10 border-purple-500 text-purple-400 shadow-[0_0_20px_rgba(168,85,247,0.3)]' :
+                          cat === 'non-technical' ? 'bg-pink-500/10 border-pink-500 text-pink-400 shadow-[0_0_20px_rgba(236,72,153,0.3)]' :
+                          cat === 'gaming' ? 'bg-green-500/10 border-green-500 text-green-400 shadow-[0_0_20px_rgba(34,197,94,0.3)]' :
+                          'bg-orange-500/10 border-orange-500 text-orange-400 shadow-[0_0_20px_rgba(249,115,22,0.3)]'
+                        : 'bg-transparent text-neutral-500 border-white/5 hover:border-white/20 hover:text-white'
+                    }`}
                   >
                     {cat.replace('-', ' ')}
                   </button>
@@ -770,191 +840,236 @@ const Events: React.FC = () => {
              </div>
           </div>
 
-          {/* Events Grid */}
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {/* --- THE "PICTURE PERFECT" CARDS --- */}
+          <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {filteredEvents.length > 0 ? (
-              filteredEvents.map(event => (
-                <div
-                  key={event.id}
-                  onClick={() => setSelectedEvent(event)}
-                  className="group relative bg-white/[0.02] border border-white/10 p-6 rounded-3xl cursor-pointer hover:border-white/20 hover:bg-white/[0.05] transition-all duration-300 hover:-translate-y-2 flex flex-col h-full backdrop-blur-md overflow-hidden"
-                >
-                  {/* Hover Glow */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-                  <div className="relative z-10 flex flex-col h-full">
-                      {/* Top Row */}
-                      <div className="flex justify-between items-start mb-4">
-                          <span className="text-4xl group-hover:scale-110 transition-transform duration-300 filter drop-shadow-lg">{event.emoji}</span>
-                          <span className={`text-[10px] px-2 py-1 rounded-lg font-bold uppercase tracking-wider border ${
-                              event.category === 'technical' ? 'border-purple-500/30 text-purple-400' : 
-                              event.category === 'gaming' ? 'border-green-500/30 text-green-400' :
-                              event.category === 'carnival' ? 'border-orange-500/30 text-orange-400' :
-                              'border-pink-500/30 text-pink-400'
-                          }`}>
-                            {event.category}
-                          </span>
+              filteredEvents.map(event => {
+                const theme = getTheme(event.category);
+                return (
+                  <div
+                    key={event.id}
+                    className="group relative h-full"
+                  >
+                    {/* Hover Glow Background */}
+                    <div className={`absolute -inset-0.5 bg-gradient-to-r ${theme.gradient} rounded-[2rem] opacity-0 group-hover:opacity-30 blur-lg transition duration-500`} />
+                    
+                    {/* Card Container */}
+                    <div className={`relative h-full bg-[#0F0F0F] rounded-[2rem] border border-white/5 overflow-hidden flex flex-col transition-all duration-500 group-hover:-translate-y-2 hover:shadow-2xl ${theme.border}`}>
+                      
+                      {/* Image Area */}
+                      <div className="relative h-60 w-full overflow-hidden bg-neutral-900">
+                          <img 
+                            src={event.image} 
+                            onError={(e) => {e.currentTarget.src = "https://via.placeholder.com/600x400/1a1a1a/333?text=Image+Not+Found"}}
+                            alt={event.title}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] via-transparent to-transparent opacity-90"></div>
+                          <div className="absolute top-4 right-4">
+                             <span className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-xl border ${theme.bg} ${theme.border} ${theme.text}`}>
+                                {event.category}
+                             </span>
+                          </div>
                       </div>
                       
-                      <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">{event.title}</h3>
-                      <p className="text-white/50 text-sm mb-6 line-clamp-2 flex-grow">{event.description}</p>
-                      
-                      {/* Footer Info */}
-                      <div className="flex justify-between items-center border-t border-white/10 pt-4 mt-auto">
-                        <div>
-                          <p className="text-[10px] text-white/30 uppercase font-bold tracking-wider">Entry</p>
-                          <p className="font-bold text-white">{event.fee}</p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-[10px] text-white/30 uppercase font-bold tracking-wider">Team</p>
-                          <p className="font-bold text-white/80 text-sm">{event.teamSize}</p>
-                        </div>
+                      {/* Content Area */}
+                      <div className="p-6 flex flex-col flex-grow relative z-10 -mt-6">
+                          <div className="flex items-start justify-between mb-4">
+                             <h3 className={`text-2xl font-bold text-white leading-tight transition-colors duration-300 group-hover:${theme.text}`}>{event.title}</h3>
+                             <span className={`text-3xl filter drop-shadow-lg`}>{event.emoji}</span>
+                          </div>
+                          
+                          <p className="text-neutral-400 text-sm leading-relaxed mb-8 line-clamp-3 font-medium">
+                            {event.description}
+                          </p>
+                          
+                          {/* Buttons */}
+                          <div className="mt-auto flex gap-4 pt-6 border-t border-white/5">
+                            <button
+                              onClick={(e) => handleLearnMoreClick(event, e)}
+                              className="flex-1 py-3 rounded-xl border border-white/10 text-neutral-400 text-xs font-bold uppercase tracking-wide hover:bg-white/5 hover:text-white hover:border-white/30 transition-all"
+                            >
+                              Info & Rules
+                            </button>
+                            
+                            <button
+                              onClick={(e) => handleRegisterClick(event, e)}
+                              className={`flex-1 py-3 rounded-xl text-xs font-bold uppercase tracking-wide text-white transition-all transform active:scale-95 ${theme.button} ${(!event.formLink && event.category !== 'carnival') ? 'opacity-50 cursor-not-allowed grayscale' : ''}`}
+                              disabled={event.category !== 'carnival' && !event.formLink}
+                            >
+                              {event.category === 'carnival' ? 'Play' : (event.formLink ? 'Register' : 'Closed')}
+                            </button>
+                          </div>
                       </div>
+                    </div>
                   </div>
-                </div>
-              ))
+                )
+              })
             ) : (
-              <div className="col-span-full py-20 text-center border border-white/10 rounded-3xl bg-white/[0.02]">
-                <p className="text-white/40 text-lg">No events found matching "{searchTerm}"</p>
+              <div className="col-span-full py-32 text-center">
+                <div className="text-6xl mb-4">🔍</div>
+                <p className="text-neutral-500 text-xl">No events found matching "{searchTerm}"</p>
               </div>
             )}
           </div>
         </div>
 
-        {/* --- EVENT DETAILS MODAL --- */}
+        {/* --- MODAL (Full Detail View) --- */}
         {selectedEvent && (
           <div 
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-200"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl animate-in fade-in duration-300"
             onClick={() => setSelectedEvent(null)}
           >
             <div 
-              className="bg-[#0a0a0a] border border-white/10 rounded-3xl w-full max-w-2xl max-h-[85vh] overflow-y-auto relative shadow-2xl custom-scrollbar"
+              className="bg-[#121212] border border-white/10 rounded-[2rem] w-full max-w-3xl max-h-[90vh] overflow-hidden relative shadow-2xl flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Close Button */}
               <button 
                 onClick={() => setSelectedEvent(null)}
-                className="sticky top-4 right-4 float-right ml-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-50 backdrop-blur-md"
+                className="absolute top-5 right-5 p-2.5 rounded-full bg-black/50 hover:bg-white/20 text-white/80 hover:text-white transition-colors z-50 backdrop-blur-md"
               >
-                ✕
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
               </button>
 
-              <div className="p-8">
-                {/* Modal Header */}
-                <div className="flex items-start gap-6 mb-8">
-                  <span className="text-6xl md:text-7xl filter drop-shadow-2xl">{selectedEvent.emoji}</span>
-                  <div>
-                    <h3 className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-tight">{selectedEvent.title}</h3>
-                    <div className="flex flex-wrap gap-3">
-                      <span className={`px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wide border ${getCategoryColor(selectedEvent.category)}`}>
-                        {selectedEvent.category}
-                      </span>
-                      <span className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-white/80 text-xs font-bold uppercase tracking-wide">
-                        {selectedEvent.fee} Entry
-                      </span>
-                      <span className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-white/80 text-xs font-bold uppercase tracking-wide">
-                        {selectedEvent.teamSize}
-                      </span>
+              {/* Modal Scrollable Content */}
+              <div className="overflow-y-auto custom-scrollbar">
+                
+                {/* Cover Image */}
+                <div className="h-80 w-full relative bg-neutral-900">
+                   <img 
+                      src={selectedEvent.image} 
+                      onError={(e) => {e.currentTarget.src = "https://via.placeholder.com/800x400/111/444?text=Event"}}
+                      className="w-full h-full object-cover opacity-80"
+                      alt={selectedEvent.title}
+                   />
+                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#121212]/50 to-[#121212]"></div>
+                   
+                   <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between">
+                      <div>
+                        <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">{selectedEvent.title}</h3>
+                        <span className={`text-sm font-bold uppercase tracking-widest ${
+                          selectedEvent.category === 'technical' ? 'text-purple-400' :
+                          selectedEvent.category === 'non-technical' ? 'text-pink-400' :
+                          selectedEvent.category === 'gaming' ? 'text-green-400' : 'text-orange-400'
+                        }`}>
+                          {selectedEvent.category} Event
+                        </span>
+                      </div>
+                      <span className="text-6xl filter drop-shadow-2xl hidden md:block">{selectedEvent.emoji}</span>
+                   </div>
+                </div>
+
+                <div className="p-8 md:p-10">
+                  
+                  {/* Key Info Stats */}
+                  <div className="grid grid-cols-2 gap-4 mb-10">
+                     <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <span className="block text-xs text-neutral-500 uppercase font-bold mb-1 tracking-wider">Entry Fee</span>
+                        <span className="text-white font-mono text-xl">{selectedEvent.fee}</span>
+                     </div>
+                     <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <span className="block text-xs text-neutral-500 uppercase font-bold mb-1 tracking-wider">Team Size</span>
+                        <span className="text-white font-mono text-xl">{selectedEvent.teamSize}</span>
+                     </div>
+                  </div>
+
+                  <div className="prose prose-invert max-w-none">
+                    <p className="text-neutral-300 text-base leading-relaxed mb-10 font-light">
+                      {selectedEvent.description}
+                    </p>
+
+                    <div className="space-y-10">
+                      {/* Dynamic Sections based on availability */}
+                      {selectedEvent.details.rounds && (
+                        <div>
+                          <h4 className="text-white text-lg font-bold uppercase mb-4 flex items-center gap-3">
+                            <span className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_blue]"></span> Rounds & Structure
+                          </h4>
+                          <ul className="space-y-3">
+                            {selectedEvent.details.rounds.map((r,i) => (
+                              <li key={i} className="flex items-start gap-3 text-neutral-400 text-sm leading-relaxed">
+                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 shrink-0"></span>
+                                {r}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      
+                      {selectedEvent.details.rules && (
+                        <div>
+                          <h4 className="text-white text-lg font-bold uppercase mb-4 flex items-center gap-3">
+                            <span className="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_10px_red]"></span> Rules & Guidelines
+                          </h4>
+                          <ul className="space-y-3">
+                            {selectedEvent.details.rules.map((r,i) => (
+                              <li key={i} className="flex items-start gap-3 text-neutral-400 text-sm leading-relaxed">
+                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 shrink-0"></span>
+                                {r}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {selectedEvent.details.judging && (
+                        <div>
+                          <h4 className="text-white text-lg font-bold uppercase mb-4 flex items-center gap-3">
+                            <span className="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_10px_purple]"></span> Judging Criteria
+                          </h4>
+                          <ul className="space-y-3">
+                            {selectedEvent.details.judging.map((r,i) => (
+                              <li key={i} className="flex items-start gap-3 text-neutral-400 text-sm leading-relaxed">
+                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 shrink-0"></span>
+                                {r}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {selectedEvent.details.prizes && (
+                        <div>
+                          <h4 className="text-white text-lg font-bold uppercase mb-4 flex items-center gap-3">
+                            <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_green]"></span> Prizes & Rewards
+                          </h4>
+                          <ul className="space-y-3">
+                            {selectedEvent.details.prizes.map((r,i) => (
+                              <li key={i} className="flex items-start gap-3 text-neutral-400 text-sm leading-relaxed">
+                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 shrink-0"></span>
+                                {r}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
                   </div>
+
+                  <div className="mt-12 pt-8 border-t border-white/10 flex justify-end">
+                     {selectedEvent.formLink && (
+                       <a 
+                         href={selectedEvent.formLink}
+                         target="_blank"
+                         rel="noreferrer"
+                         className={`px-10 py-4 rounded-2xl font-bold text-white shadow-2xl hover:scale-105 transition-transform ${
+                            selectedEvent.category === 'technical' ? 'bg-gradient-to-r from-purple-600 to-purple-500' :
+                            selectedEvent.category === 'non-technical' ? 'bg-gradient-to-r from-pink-600 to-pink-500' :
+                            selectedEvent.category === 'gaming' ? 'bg-gradient-to-r from-green-600 to-green-500' : 'bg-gradient-to-r from-orange-600 to-orange-500'
+                         }`}
+                       >
+                         Register Now
+                       </a>
+                     )}
+                     {selectedEvent.category === 'carnival' && (
+                        <div className="px-10 py-4 rounded-2xl font-bold text-white bg-orange-600/80 cursor-default border border-orange-500/30">
+                          Pay & Play On-Spot
+                        </div>
+                     )}
+                  </div>
                 </div>
-
-                <p className="text-white/80 text-lg mb-8 leading-relaxed font-light border-l-2 border-purple-500 pl-6">
-                  {selectedEvent.description}
-                </p>
-
-                {/* Details Grid */}
-                <div className="grid md:grid-cols-2 gap-8 mb-8">
-                  
-                  {/* Rounds / Format */}
-                  {(selectedEvent.details.rounds || selectedEvent.details.format) && (
-                    <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5">
-                      <h4 className="text-orange-400 font-bold uppercase tracking-widest text-xs mb-4">
-                        {selectedEvent.details.rounds ? 'Structure' : 'Format'}
-                      </h4>
-                      <ul className="space-y-3">
-                        {(selectedEvent.details.rounds || selectedEvent.details.format)?.map((r, i) => (
-                          <li key={i} className="text-white/70 text-sm flex items-start gap-3">
-                            <span className="text-orange-500/50 mt-1">●</span> 
-                            <span>{r}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Rules */}
-                  {selectedEvent.details.rules && (
-                    <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5">
-                      <h4 className="text-pink-400 font-bold uppercase tracking-widest text-xs mb-4">Rules</h4>
-                      <ul className="space-y-3">
-                        {selectedEvent.details.rules.map((r, i) => (
-                          <li key={i} className="text-white/70 text-sm flex items-start gap-3">
-                            <span className="text-pink-500/50 mt-1">●</span> 
-                            <span>{r}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Judging / Points */}
-                  {(selectedEvent.details.judging || selectedEvent.details.points) && (
-                    <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5">
-                      <h4 className="text-purple-400 font-bold uppercase tracking-widest text-xs mb-4">
-                        {selectedEvent.details.points ? 'Scoring' : 'Judging'}
-                      </h4>
-                      <ul className="space-y-3">
-                        {(selectedEvent.details.judging || selectedEvent.details.points)?.map((j, i) => (
-                          <li key={i} className="text-white/70 text-sm flex items-start gap-3">
-                            <span className="text-purple-500/50 mt-1">●</span> 
-                            <span>{j}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Prizes / Categories */}
-                  {(selectedEvent.details.prizes || selectedEvent.details.categories) && (
-                    <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5">
-                      <h4 className="text-green-400 font-bold uppercase tracking-widest text-xs mb-4">
-                        {selectedEvent.details.prizes ? 'Prizes' : 'Categories'}
-                      </h4>
-                      <ul className="space-y-3">
-                        {(selectedEvent.details.prizes || selectedEvent.details.categories)?.map((p, i) => (
-                          <li key={i} className="text-white/70 text-sm flex items-start gap-3">
-                            <span className="text-green-500/50 mt-1">●</span> 
-                            <span>{p}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-
-                {/* Register Footer */}
-                <div className="sticky bottom-0 -mx-8 -mb-8 p-6 bg-[#0a0a0a]/95 border-t border-white/10 backdrop-blur-xl flex justify-end">
-                  {selectedEvent.category === 'carnival' ? (
-                    <div className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white/60 font-medium text-sm cursor-default w-full text-center">
-                      Pay & Play at Venue (On-Spot)
-                    </div>
-                  ) : selectedEvent.formLink ? (
-                    <a 
-                      href={selectedEvent.formLink} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="w-full md:w-auto px-8 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold hover:shadow-[0_0_20px_rgba(236,72,153,0.4)] transition-all flex items-center justify-center gap-2 transform hover:scale-[1.02]"
-                    >
-                      Register Now <span>→</span>
-                    </a>
-                  ) : (
-                    <button disabled className="w-full md:w-auto px-8 py-3 bg-white/10 rounded-xl text-white/40 font-bold cursor-not-allowed">
-                      Registration Closed
-                    </button>
-                  )}
-                </div>
-
               </div>
             </div>
           </div>

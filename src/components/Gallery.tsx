@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -11,17 +11,31 @@ interface GalleryItem {
   alt: string;
 }
 
-// --- Data ---
-const initialGalleryItems: GalleryItem[] = [
-  { id: 1, title: 'Community Leaders Meet', category: '2024', url: '../public/images/gallery/a3.jpg', alt: 'Community Leaders Meetup highlights' },
-  { id: 2, title: 'The Crowd View', category: '2024', url: '../public/images/gallery/a2.jpg', alt: 'A large group smiling together' },
-  { id: 3, title: 'Main Stage Performance', category: '2024', url: '../public/images/gallery/a7.jpg', alt: 'Performer on stage with lights' },
-  { id: 4, title: 'Deep Dive Workshop', category: '2024', url: '../public/images/gallery/a4.jpg', alt: 'Attendees in a focused workshop' },
-  { id: 5, title: 'Candid Laughter', category: '2024', url: '../public/images/gallery/a6.jpg', alt: 'Candid moment of laughter' },
-  { id: 6, title: 'Setup Details', category: '2024', url: '../public/images/gallery/a8.jpg', alt: 'Detailed view of event decorations' },
-  { id: 7, title: 'Hackathon Winners', category: '2024', url: '../public/images/gallery/a1.jpg', alt: 'Team celebrating a win' },
-  { id: 8, title: 'Code Quest', category: '2024', url: '../public/images/gallery/a5.jpg', alt: 'Closing ceremony crowd view' },
-];
+// --- Data Generation ---
+const generateGalleryData = (): GalleryItem[] => {
+  const items: GalleryItem[] = [];
+  
+  const titles = [
+    "Hackathon Victory", "The Crowd", "Leaders Meet", "Workshop Focus", "Code Quest", 
+    "Candid Moments", "Stage Lights", "Setup Vibes", "Team Spirit", "Night Event",
+    "Registration Buzz", "Main Hall", "Tech Talk", "Gaming Zone", "Prize Distribution",
+    "Faculty Visit", "Volunteers", "Opening Ceremony", "Closing Night", "Audience Cheering",
+    "Project Demo", "Final Group"
+  ];
+
+  for (let i = 1; i <= 22; i++) {
+    items.push({
+      id: i,
+      category: '2024', 
+      title: titles[i-1] || `Fiestron Archive ${i}`,
+      url: `/images/gallery/a${i}.png`, 
+      alt: `Fiestron 2024 Event Highlight ${i}`
+    });
+  }
+  return items;
+};
+
+const initialGalleryItems = generateGalleryData();
 
 // --- Messages ---
 const preEventMessages = [
@@ -34,7 +48,8 @@ const preEventMessages = [
 
 const Gallery: React.FC = () => {
   const [filter, setFilter] = useState<'all' | '2024' | '2025'>('all');
-  const [lightboxImage, setLightboxImage] = useState<GalleryItem | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  
   const categories: ('all' | '2024' | '2025')[] = ['all', '2024', '2025'];
 
   // Filter items
@@ -43,12 +58,11 @@ const Gallery: React.FC = () => {
     return initialGalleryItems.filter(item => item.category === filter);
   }, [filter]);
 
-  // Group items for "all"
+  // Group items for "all" view
   const groupedItems = useMemo(() => {
     if (filter !== 'all') return null;
 
     const uniqueCategories = Array.from(new Set(initialGalleryItems.map(item => item.category))).sort();
-
     const groups = uniqueCategories.map(cat => ({
       category: cat as '2024' | '2025',
       items: initialGalleryItems.filter(item => item.category === cat)
@@ -65,37 +79,73 @@ const Gallery: React.FC = () => {
   const randomPreEventMessage = useMemo(() => {
     const randomIndex = Math.floor(Math.random() * preEventMessages.length);
     return preEventMessages[randomIndex];
-  }, [filter]);
+  }, []);
 
-  // Gallery card
+  // --- Lightbox Logic ---
+  const openLightbox = (item: GalleryItem) => {
+    const index = filteredItems.findIndex(i => i.id === item.id);
+    setLightboxIndex(index);
+  };
+
+  const closeLightbox = () => setLightboxIndex(null);
+
+  const showNext = useCallback((e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (lightboxIndex !== null) {
+      setLightboxIndex((prev) => (prev! + 1) % filteredItems.length);
+    }
+  }, [lightboxIndex, filteredItems.length]);
+
+  const showPrev = useCallback((e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (lightboxIndex !== null) {
+      setLightboxIndex((prev) => (prev! - 1 + filteredItems.length) % filteredItems.length);
+    }
+  }, [lightboxIndex, filteredItems.length]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (lightboxIndex === null) return;
+      if (e.key === 'ArrowRight') showNext();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'Escape') closeLightbox();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxIndex, showNext, showPrev]);
+
+  // --- Components ---
+
   const GalleryItemCard: React.FC<{ item: GalleryItem }> = ({ item }) => (
     <div
-      key={item.id}
-      onClick={() => setLightboxImage(item)}
-      className="group relative border border-white/10 bg-white/[0.02] overflow-hidden cursor-zoom-in rounded-xl shadow-xl hover:shadow-purple-500/20 hover:border-purple-500/30 transition-all duration-500 break-inside-avoid"
+      onClick={() => openLightbox(item)}
+      className="group relative mb-6 break-inside-avoid cursor-zoom-in overflow-hidden border border-white/5 bg-white/[0.02] hover:border-pink-500/50 transition-all duration-300 shadow-2xl"
     >
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex flex-col justify-end p-5">
-        <h4 className='text-white font-semibold text-lg drop-shadow-lg'>{item.title}</h4>
-        <span className="text-orange-400 text-xs font-bold uppercase tracking-wider mt-1">
-          {item.category} Gallery
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex flex-col justify-end p-4">
+        <h4 className='text-white font-bold text-lg drop-shadow-md translate-y-4 group-hover:translate-y-0 transition-transform duration-300'>
+          {item.title}
+        </h4>
+        <div className="h-0.5 w-12 bg-gradient-to-r from-orange-500 to-pink-500 mt-2 mb-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+        <span className="text-gray-300 text-[10px] uppercase tracking-widest translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
+          {item.category} Collection
         </span>
       </div>
 
       <img
         src={item.url}
         alt={item.alt}
-        className="w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700"
+        className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out rounded-none"
+        loading="lazy"
         onError={(e) => {
-          (e.target as HTMLImageElement).src = `https://placehold.co/600x400/1a1a1a/FFF?text=${item.title.split(' ')[0]}`;
+          (e.target as HTMLImageElement).src = `https://placehold.co/600x400/1a1a1a/FFF?text=Img+Not+Found`;
         }}
       />
     </div>
   );
 
-  // Pre-event message component **FIXED**
   const PreEventMessage: React.FC = () => (
-    <div className="text-center p-10 my-12 max-w-3xl mx-auto">
-      <p className="text-xl font-light text-white mb-4 tracking-wider">
+    <div className="text-center p-12 my-12 border border-dashed border-white/10 mx-auto max-w-2xl bg-white/[0.02]">
+      <p className="text-xl md:text-2xl font-light text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-600 mb-2">
         {randomPreEventMessage}
       </p>
     </div>
@@ -105,44 +155,49 @@ const Gallery: React.FC = () => {
     <>
       <Header />
 
-      <section className="relative pt-32 pb-24 min-h-screen bg-black text-white overflow-hidden font-sans selection:bg-purple-500/30">
+      <section className="relative pt-32 pb-24  min-h-screen bg-[#050505] text-white font-sans selection:bg-pink-500/30">
+        
+        {/* Grainy Noise Background */}
+        <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-0"  />
+        
+        {/* Ambient Glow */}
+        <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px]  bg-black blur-[120px] rounded-full pointer-events-none z-0" />
 
-        <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }} />
-
-        <div className="relative max-w-7xl mx-auto px-6 z-10">
+        <div className="relative max-w-[1400px] mx-auto px-4 md:px-8 z-10">
 
           {/* Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-sm font-bold text-orange-500 mb-3 tracking-[0.2em] uppercase">
-              / GALLERY
+          <div className="text-center mb-20">
+            <h2 className="text-xs font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-500 mb-4 tracking-[0.3em] uppercase">
+              // Visual Archives
             </h2>
 
-            <h3 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6">
-              Event <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500">Highlights</span>
+      <h3 className="text-4xl md:text-8xl font-black tracking-tighter text-white mb-6 ">
+
+              Event <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 stroke-white">Highlights</span>
+
             </h3>
 
-            <p className="text-white/50 text-lg max-w-2xl mx-auto">
-              Curated visual captures from Fiestron events. Relive the defining moments.
+
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto font-light leading-relaxed">
+              A curated collection of moments, energy, and innovation from previous years. 
+              Witness the legacy of KC College's Tech Fest.
             </p>
           </div>
 
-          {/* Filter Buttons */}
-          <div className="flex justify-center gap-3 mb-16 flex-wrap">
+          {/* Filter Buttons - ROUNDED FULL ADDED HERE */}
+          <div className="flex justify-center gap-4 mb-16 flex-wrap">
             {categories.map(cat => {
               const active = filter === cat;
-              const label =
-                cat === 'all' ? 'All Years' :
-                cat === '2024' ? 'Archives' :
-                'Live Feed';
+              const label = cat === 'all' ? 'ALL YEARS' : cat === '2024' ? '2024 ARCHIVE' : '2025 LIVE';
 
               return (
                 <button
                   key={cat}
                   onClick={() => setFilter(cat)}
-                  className={`px-5 py-2 rounded-xl font-medium text-xs border transition-all duration-300 shadow-lg 
+                  className={`px-8 py-3 font-bold text-xs uppercase tracking-widest border transition-all duration-300 rounded-full
                     ${active
-                      ? 'bg-purple-500/90 text-white border-purple-500/90 shadow-purple-500/40'
-                      : 'bg-white/5 text-white/70 border-white/10 hover:border-purple-500/50 hover:text-white'
+                      ? 'bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.3)]'
+                      : 'bg-transparent text-gray-500 border-white/10 hover:border-white/40 hover:text-white'
                     }`}
                 >
                   {label}
@@ -151,15 +206,21 @@ const Gallery: React.FC = () => {
             })}
           </div>
 
-          {/* ALL view */}
+          {/* Masonry Grid Layout */}
           {filter === 'all' ? (
             groupedItems?.map((group, index) => (
               <React.Fragment key={group.category}>
-                {!(group.category !== '2025' && group.items.length === 0) && (
-                  <div className={`mt-20 mb-8 text-center ${index > 0 ? 'border-t border-white/5 pt-10' : ''}`}>
-                    <h3 className="text-white/30 uppercase tracking-[0.2em] text-sm font-bold mb-4">
-                      {group.category} {group.category === '2024' ? 'ARCHIVES' : 'LIVE FEED'}
+                
+                {/* --- CENTERED HEADERS UPDATED HERE --- */}
+                {!(group.category === '2025' && group.items.length === 0) && (
+                  <div className={`mt-24 mb-12 text-center ${index > 0 ? 'border-t border-white/10 pt-16' : ''}`}>
+                    <h3 className="text-3xl md:text-4xl font-bold tracking-tight inline-flex items-center gap-3">
+                      <span className="text-white">{group.category}</span>
+                      <span className="text-transparent bg-clip-text text-white/50">
+                        {group.category === '2024' ? 'Archives' : 'Live Feed'}
+                      </span>
                     </h3>
+                    <div className="w-12 h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent mx-auto mt-4 rounded-full"></div>
                   </div>
                 )}
 
@@ -176,72 +237,77 @@ const Gallery: React.FC = () => {
             ))
           ) : (
             <>
-              {/* 2024 */}
-              {filter === '2024' && filteredItems.length > 0 && (
+              {filteredItems.length > 0 ? (
                 <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
                   {filteredItems.map(item => (
                     <GalleryItemCard key={item.id} item={item} />
                   ))}
                 </div>
-              )}
-
-              {/* 2025 → no items */}
-              {filter === '2025' && filteredItems.length === 0 && (
-                <PreEventMessage />
+              ) : (
+                 <PreEventMessage />
               )}
             </>
           )}
 
         </div>
 
-        {/* Lightbox */}
-        {lightboxImage && (
+        {/* --- LIGHTBOX MODAL --- */}
+        {lightboxIndex !== null && filteredItems[lightboxIndex] && (
           <div
-            className="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md"
-            onClick={() => setLightboxImage(null)}
+            className="fixed inset-0 z-[150] flex items-center justify-center bg-black/95 backdrop-blur-xl transition-all duration-300"
+            onClick={closeLightbox}
           >
+            {/* Close Button */}
+            <button
+              onClick={closeLightbox}
+              className="absolute top-6 right-6 z-[160] p-2 text-white/50 hover:text-white hover:rotate-90 transition-all duration-300"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+
+            {/* Previous Button */}
+            <button
+              onClick={showPrev}
+              className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 z-[160] p-4 bg-black/50 hover:bg-white/10 border border-white/10 rounded-full text-white transition-all group"
+            >
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+
+            {/* Next Button */}
+            <button
+              onClick={showNext}
+              className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 z-[160] p-4 bg-black/50 hover:bg-white/10 border border-white/10 rounded-full text-white transition-all group"
+            >
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+
+            {/* Content Container */}
             <div
-              className="relative w-full max-w-5xl max-h-[90vh] rounded-xl overflow-hidden flex flex-col md:flex-row bg-[#0a0a0a] border border-white/20 shadow-2xl"
+              className="relative w-full h-full max-w-7xl flex flex-col items-center justify-center p-4 md:p-10"
               onClick={e => e.stopPropagation()}
             >
-
-              <div className="flex-1 bg-black flex items-center justify-center">
+              <div className="relative max-h-[85vh] flex flex-col items-center">
                 <img
-                  src={lightboxImage.url}
-                  alt={lightboxImage.alt}
-                  className="max-w-full max-h-[80vh] object-contain"
+                  src={filteredItems[lightboxIndex].url}
+                  alt={filteredItems[lightboxIndex].alt}
+                  className="max-h-[75vh] max-w-full object-contain shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10"
                 />
-              </div>
-
-              <div className="w-full md:w-80 bg-[#111] border-l border-white/10 p-6 flex flex-col">
-                <div className="hidden md:block mb-4">
-                  <span
-                    className={`inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest
-                      ${lightboxImage.category === '2024'
-                        ? 'text-purple-400 border border-purple-400/30 bg-purple-900/20'
-                        : 'text-orange-400 border border-orange-400/30 bg-orange-900/20'
-                      }`}
-                  >
-                    {lightboxImage.category === '2024' ? '2024 ARCHIVE' : '2025 LIVE'}
-                  </span>
-                </div>
-
-                <h3 className="text-2xl font-bold mb-2">{lightboxImage.title}</h3>
-                <p className="text-white/40 text-sm">{lightboxImage.alt}</p>
-
-                <div className="mt-auto pt-6 border-t border-white/10 flex justify-between items-center">
-                  <button className="text-white/40 hover:text-white text-sm transition-colors">Share Photo</button>
-                  <button className="text-white/40 hover:text-white text-sm transition-colors">Download Original</button>
+                
+                <div className="mt-6 text-center">
+                  <h3 className="text-2xl font-bold text-white tracking-tight">
+                    {filteredItems[lightboxIndex].title}
+                  </h3>
+                  <div className="flex items-center justify-center gap-2 mt-2">
+                    <span className="text-orange-500 text-xs font-bold uppercase tracking-wider">
+                      {filteredItems[lightboxIndex].category}
+                    </span>
+                    <span className="text-white/20">•</span>
+                    <span className="text-white/40 text-sm">
+                      Image {lightboxIndex + 1} of {filteredItems.length}
+                    </span>
+                  </div>
                 </div>
               </div>
-
-              <button
-                onClick={() => setLightboxImage(null)}
-                className="absolute top-3 right-3 p-2 w-10 h-10 rounded-full bg-black/70 hover:bg-white/20 text-white text-lg font-bold border border-white/20 backdrop-blur-sm transition-colors"
-              >
-                ✕
-              </button>
-
             </div>
           </div>
         )}
