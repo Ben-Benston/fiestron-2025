@@ -53,9 +53,8 @@ const Announcements: React.FC = () => {
   const [email, setEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
 
-  const API_URL = "http://localhost:5000/api/announcements";
-  const CONTACT_API_URL = "http://localhost:5000/api/contact";
-
+const API_URL = "/api/announcements";
+const CONTACT_API_URL = "/api/contact";
   // FETCH ANNOUNCEMENTS
   useEffect(() => {
     const fetchAnnouncements = async () => {

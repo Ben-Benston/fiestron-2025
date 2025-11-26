@@ -1,109 +1,104 @@
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs/promises');
-const path = require('path');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
 const app = express();
-const DATA_DIR = path.join(__dirname, 'data');
-const ANNOUNCEMENTS_FILE = path.join(DATA_DIR, 'announcements.json');
-const CONTACTS_FILE = path.join(DATA_DIR, 'contacts.json');
 
 // Middleware
-app.use(cors()); // Allow your React app (on a different port) to access this API
-app.use(express.json()); // Allows parsing JSON body data
+app.use(cors());
+app.use(express.json());
 
-// --- INITIALIZE DATA FILES (If they don't exist) ---
-async function initializeData() {
-  await fs.mkdir(DATA_DIR, { recursive: true });
+// --- DATABASE CONNECTION ---
+// This connects to the MongoDB Cloud using your password
+const connectDB = async () => {
+  if (mongoose.connections[0].readyState) return;
   try {
-    await fs.access(ANNOUNCEMENTS_FILE);
-  } catch {
-    // If file doesn't exist, create it with an empty array
-    await fs.writeFile(ANNOUNCEMENTS_FILE, '[]');
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log('✅ Connected to MongoDB');
+  } catch (err) {
+    console.error('❌ MongoDB connection error:', err);
   }
-  try {
-    await fs.access(CONTACTS_FILE);
-  } catch {
-    // If file doesn't exist, create it with an empty array
-    await fs.writeFile(CONTACTS_FILE, '[]');
-  }
-  console.log('✅ Data files initialized.');
-}
+};
+
+// --- SCHEMAS (Data Models) ---
+const AnnouncementSchema = new mongoose.Schema({
+  title: String,
+  date: String,
+  type: String, // 'important', 'update', etc.
+  content: String,
+  createdAt: { type: Date, default: Date.now }
+});
+const Announcement = mongoose.model('Announcement', AnnouncementSchema);
+
+const ContactSchema = new mongoose.Schema({
+  email: String,
+  type: String,
+  message: String,
+  timestamp: { type: Date, default: Date.now }
+});
+const Contact = mongoose.model('Contact', ContactSchema);
 
 // --- API ROUTES ---
 
-// 1. ANNOUNCEMENTS API
-// GET all announcements (READ)
+// 1. GET Announcements
 app.get('/api/announcements', async (req, res) => {
+  await connectDB();
   try {
-    const data = await fs.readFile(ANNOUNCEMENTS_FILE, 'utf-8');
-    const announcements = JSON.parse(data);
-    // Sort by ID descending (newest first)
-    res.json(announcements.sort((a, b) => b.id - a.id)); 
+    // Get all announcements, sorted by newest first
+    const data = await Announcement.find().sort({ createdAt: -1 });
+    
+    // Format the _id to be 'id' for the frontend
+    const formatted = data.map(item => ({
+      id: item._id, 
+      ...item._doc
+    }));
+    res.json(formatted);
   } catch (err) {
-    res.status(500).json({ message: 'Error reading announcements.' });
+    res.status(500).json({ error: 'Server Error' });
   }
 });
 
-// POST a new announcement (WRITE - for manual/admin use)
+// 2. POST Announcement (For Admin Use)
 app.post('/api/announcements', async (req, res) => {
+  await connectDB();
   try {
-    const announcements = JSON.parse(await fs.readFile(ANNOUNCEMENTS_FILE, 'utf-8'));
-    // Generate a new ID (simple counter based on current data)
-    const newId = announcements.length > 0 ? announcements[0].id + 1 : 1; 
+    const { title, type, content } = req.body;
+    const date = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
     
-    // Format the date nicely for the frontend (e.g., "21 Nov 2025")
-    const newAnnouncement = { 
-        id: newId, 
-        date: new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }), 
-        ...req.body 
-    };
-
-    announcements.unshift(newAnnouncement); // Add to the start
-    await fs.writeFile(ANNOUNCEMENTS_FILE, JSON.stringify(announcements, null, 2));
-
+    const newAnnouncement = await Announcement.create({
+      title,
+      date, 
+      type,
+      content
+    });
+    
     res.status(201).json(newAnnouncement);
   } catch (err) {
-    console.error('Error writing announcement:', err);
-    res.status(500).json({ message: 'Could not save announcement.' });
+    res.status(500).json({ error: 'Could not save' });
   }
 });
 
-
-// 2. CONTACT/SPONSOR FORMS API
-// POST a new form entry (WRITE)
+// 3. POST Contact/Subscribe
 app.post('/api/contact', async (req, res) => {
+  await connectDB();
   try {
-    const contacts = JSON.parse(await fs.readFile(CONTACTS_FILE, 'utf-8'));
-    // Record submission timestamp and type
-    const newEntry = { timestamp: new Date().toISOString(), type: 'Contact', ...req.body };
-    
-    contacts.push(newEntry);
-    await fs.writeFile(CONTACTS_FILE, JSON.stringify(contacts, null, 2));
-
-    res.status(201).json({ message: 'Form submitted successfully. We will be in touch.' });
+    await Contact.create(req.body);
+    res.status(201).json({ message: 'Success' });
   } catch (err) {
-    console.error('Error submitting contact form:', err);
-    res.status(500).json({ message: 'Server error during submission.' });
+    res.status(500).json({ error: 'Failed' });
   }
 });
-
-// GET all contact entries (for Admin access)
-app.get('/api/contact', async (req, res) => {
-    try {
-        const data = await fs.readFile(CONTACTS_FILE, 'utf-8');
-        res.json(JSON.parse(data)); 
-    } catch (err) {
-        res.status(500).json({ message: 'Error reading contact entries.' });
-    }
-});
-
 
 // --- SERVER START ---
-const PORT = 5000;
-initializeData().then(() => {
+const PORT = process.env.PORT || 5000;
+
+// Listen only if running locally
+if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-    console.log('Endpoints: /api/announcements, /api/contact');
+    console.log(`🚀 Server running locally on http://localhost:${PORT}`);
   });
-});
+}
+
+// Export for Vercel
+module.exports = app;
