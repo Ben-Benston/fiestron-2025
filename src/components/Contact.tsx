@@ -19,7 +19,8 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault();
-const API_URL = '/api/contact';
+    
+  const API_URL = 'https://fiestron-2025.onrender.com/api/contact';
     try
     {
       const response = await axios.post(API_URL, formData);

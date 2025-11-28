@@ -34,8 +34,7 @@ const Sponsors: React.FC = () => {
       return;
     }
 
-    const API_URL = 'http://localhost:5000/api/contact';
-
+    const API_URL = 'https://fiestron-2025.onrender.com/api/contact';
     try {
       await axios.post(API_URL, {
         ...formData,

@@ -48,9 +48,9 @@ const Announcements: React.FC = () => {
   const [email, setEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
   
-  // Note: This API call might still fail if backend is down, but it won't crash the page on load
-  const CONTACT_API_URL = "/api/contact"; 
-
+  //this API call might still fail if backend is down but it won't crash the page on load
+  const CONTACT_API_URL = "https://fiestron-2025.onrender.com/api/contact";
+  
   const handleSubscribe = async () => {
     if (!email || !email.includes("@")) {
       alert("Please enter a valid email address.");
