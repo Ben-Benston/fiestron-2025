@@ -93,12 +93,13 @@ app.post('/api/contact', async (req, res) => {
 // --- SERVER START ---
 const PORT = process.env.PORT || 5000;
 
-// Listen only if running locally
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running locally on http://localhost:${PORT}`);
-  });
-}
+// Always listen (Fixed for Render)
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
+
+// Export for Vercel (Optional, but safe to keep)
+module.exports = app;
 
 // Export for Vercel
 module.exports = app;
